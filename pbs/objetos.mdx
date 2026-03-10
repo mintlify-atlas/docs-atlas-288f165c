@@ -1,0 +1,46 @@
+---
+title: "PBS: Objetos"
+description: "Formato de archivo items.txt"
+---
+
+## Archivo items.txt
+
+Define todos los objetos del juego.
+
+### Estructura
+
+```
+[POTION]
+Name = Poción
+NamePlural = Pociones
+Pocket = 1
+Price = 300
+SellPrice = 150
+FieldUse = OnPokemon
+Flags = Consumable
+Description = Restaura 20 PS de un Pokémon.
+```
+
+### Campos
+
+- **Pocket**: Bolsillo de la mochila (1-8)
+- **Price**: Precio de compra
+- **SellPrice**: Precio de venta
+- **FieldUse**: Cuándo se puede usar
+- **Flags**: Características especiales
+
+## Precio de venta
+
+**Cambiado en v1.1.0**: Precio por defecto 1/4 en lugar de 1/2 (como BDSP/SV).
+
+## MT con nombre
+
+**Agregado en v1.1.2**: Al encontrar una MT, muestra el nombre del movimiento.
+
+## Gen 9
+
+Todos los items de Paldea incluidos.
+
+<Card title="Entrenadores" icon="users" href="/pbs/entrenadores">
+  Ver formato de entrenadores
+</Card>

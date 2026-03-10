@@ -1,0 +1,44 @@
+---
+title: "Scripts Personalizados"
+description: "Añadir tus propios scripts a la base"
+---
+
+## Dónde añadir scripts
+
+Opciones:
+
+1. **Como plugin** (recomendado)
+2. En `Data/Scripts/`
+3. Como archivos .rb externos
+
+## Ruby Standard Library
+
+**Agregado en v1.1.0**: RSL 3.3.0 incluida.
+
+```ruby
+require 'json'
+
+data = { "name" => "Pikachu", "level" => 25 }
+json_string = JSON.generate(data)
+```
+
+## scripts_combine y scripts_extract
+
+**Mejorado en v1.1.1**:
+
+```bash
+# Extraer scripts a archivos .rb
+ruby scripts_extract.rb
+
+# Combinar de vuelta
+ruby scripts_combine.rb
+```
+
+## Mejores prácticas
+
+<Tip>
+- Usa plugins para código modular
+- Comenta tu código
+- Prueba exhaustivamente
+- Documenta APIs públicas
+</Tip>

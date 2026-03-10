@@ -1,0 +1,78 @@
+---
+title: "Configuración de Exp Share"
+description: "Sistema de reparto de experiencia mejorado"
+---
+
+## Nuevo sistema de Exp Share
+
+**Actualizado en v1.1.0**: Sistema de experiencia mejorado.
+
+## Configuraciones
+
+### Activar nuevo sistema
+
+```ruby
+# Usar el nuevo exp share individual
+Settings::USE_NEW_EXP_SHARE = true
+```
+
+### Activar desde el inicio
+
+```ruby
+# Exp share activo desde el inicio
+Settings::EXPSHARE_ENABLED = true
+```
+
+<Warning>
+Si `EXPSHARE_ENABLED = true`, el exp share estará activo para todos los Pokémon desde el inicio. Si quieres controlarlo por evento, déjalo en `false`.
+</Warning>
+
+## Activar por evento
+
+**Agregado en v1.1.1**: Opción para activar exp share por evento.
+
+```ruby
+# En un evento del juego
+$player.has_exp_all = true
+```
+
+## Panel de experiencia múltiple
+
+Plugin incluido que muestra experiencia ganada para cada Pokémon.
+
+<Steps>
+  <Step title="Configurar">
+    El plugin se activa automáticamente con `USE_NEW_EXP_SHARE`
+  </Step>
+  <Step title="Visualizar">
+    Después de cada combate, ver qué Pokémon ganó experiencia
+  </Step>
+</Steps>
+
+## Opciones individuales
+
+Con el nuevo sistema, cada Pokémon puede tener exp share activado/desactivado:
+
+```ruby
+# Activar exp share para un Pokémon específico
+pokemon.exp_share = true
+
+# Desactivar
+pokemon.exp_share = false
+```
+
+## Desactivar el sistema
+
+**Agregado en v1.0.7**: Opción para desactivar el nuevo repartir experiencia.
+
+```ruby
+Settings::USE_NEW_EXP_SHARE = false
+```
+
+<Note>
+Con el sistema desactivado, vuelve al comportamiento clásico de Exp Share como objeto.
+</Note>
+
+## Correcciones
+
+**v1.1.2**: Correcciones en expshare, especialmente en nuevas partidas.

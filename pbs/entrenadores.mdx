@@ -1,0 +1,56 @@
+---
+title: "PBS: Entrenadores"
+description: "Formato de trainers.txt y trainer_types.txt"
+---
+
+## Archivo trainer_types.txt
+
+Define tipos de entrenadores:
+
+```
+[LEADER]
+Name = Líder de Gimnasio
+BaseMoney = 40
+BattleBGM = Battle gym leader
+VictoryBGM = Battle victory leader
+Gender = Mixed
+```
+
+## Archivo trainers.txt
+
+Define entrenadores individuales:
+
+```
+[LEADER_Brock,0]
+Items = POTION,SUPERPOTION
+LoseText = ¡Vaya, has ganado!
+Pokemon = GEODUDE,12
+Pokemon = ONIX,14
+```
+
+### Campos de Pokémon
+
+```
+Pokemon = SPECIES,LEVEL,FORM
+Ability = 0  # 0=primera, 1=segunda, 2=oculta
+IV = 31,31,31,31,31,31
+EV = 0,252,0,0,0,252
+Moves = MOVE1,MOVE2,MOVE3,MOVE4
+Item = SITRUSBERRY
+Ball = POKEBALL
+Shiny = false
+```
+
+## LoseText_F
+
+**Agregado en v1.1.2**: Texto cuando pierde si el jugador es femenino.
+
+```
+[LEADER_Brock,0]
+LoseText = Has ganado, chaval.
+LoseText_F = Has ganado, chica.
+```
+
+<Card title="Más PBS" icon="folder" href="/pbs/pokemon">
+  Ver otros archivos PBS
+</Card>

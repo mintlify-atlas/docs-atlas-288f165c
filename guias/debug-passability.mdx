@@ -1,0 +1,43 @@
+---
+title: "Debug Passability"
+description: "Visualizar pasabilidad de tiles para encontrar errores"
+---
+
+## Qué es
+
+Herramienta para visualizar la pasabilidad de tiles y encontrar errores de mapeo.
+
+## Activar
+
+**NPC en Pueblo Inicio** (v1.0.4) explica cómo activar.
+
+```ruby
+# En Settings o mediante switch
+Settings::DEBUG_PASSABILITY_SWITCH = 50
+$game_switches[50] = true
+```
+
+## Uso
+
+<Steps>
+  <Step title="Activar el modo">
+    Configurar switch o constante
+  </Step>
+  <Step title="Visualizar">
+    Los tiles se marcan con colores:
+    - Verde: Pasable
+    - Rojo: No pasable
+    - Amarillo: Parcialmente pasable
+  </Step>
+  <Step title="Corregir">
+    Identificar y arreglar tiles problemáticos
+  </Step>
+</Steps>
+
+## Terminal F3
+
+Alternativa: Easy Debug Terminal con F3 para debugging avanzado.
+
+<Card title="Herramientas debug" icon="bug" href="/caracteristicas/herramientas-debug">
+  Ver todas las herramientas de debugging
+</Card>

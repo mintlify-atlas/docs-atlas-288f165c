@@ -1,0 +1,50 @@
+---
+title: "Game Classes"
+description: "Clases principales del juego"
+---
+
+## Clases core
+
+Archivo: `011_Game classes/`
+
+### Game_Player
+
+Maneja el jugador en el mapa:
+
+```ruby
+$game_player.moveto(x, y)
+$game_player.turn_up
+$game_player.jump(x_plus, y_plus)
+```
+
+### Game_Map
+
+Maneja el mapa actual:
+
+```ruby
+$game_map.map_id
+$game_map.name
+$game_map.metadata
+```
+
+### Game_System
+
+Sistema global:
+
+```ruby
+$game_system.bgm_play(bgm)
+$game_system.bgs_play(bgs)
+```
+
+## Switches y Variables
+
+Archivo: `012_Switches and Variables/`
+
+```ruby
+$game_switches[50] = true
+$game_variables[10] = 25
+```
+
+<Card title="Eventos" icon="calendar" href="/guias/sistema-eventos">
+  Usar en eventos del juego
+</Card>

@@ -1,97 +1,105 @@
 ---
-title: "Introduction"
-description: "Welcome to the new home for your documentation"
+title: "La Base de Sky"
+description: "Framework de Pokémon Essentials v21.1 en español con características mejoradas, plugins modulares y soporte completo de Gen 9"
 ---
 
-## Setting up
+<div className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 rounded-lg p-8 mb-8">
+  <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-4">
+    La Base de Sky
+  </h1>
+  <p className="text-xl text-gray-700 dark:text-gray-300 mb-6">
+    La base de Pokémon Essentials más completa en español, con todas las características de Gen 9 y herramientas avanzadas para desarrolladores.
+  </p>
+  <div className="flex gap-4">
+    <a 
+      href="/instalacion" 
+      className="inline-block px-6 py-3 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition"
+    >
+      Comenzar
+    </a>
+    <a 
+      href="https://github.com/SkyFangames/La-Base-de-Sky" 
+      className="inline-block px-6 py-3 bg-gray-800 text-white font-semibold rounded hover:bg-gray-900 transition"
+    >
+      Ver en GitHub
+    </a>
+  </div>
+</div>
 
-Get your documentation site up and running in minutes.
+## Características principales
 
-<Card
-  title="Start here"
-  icon="rocket"
-  href="/quickstart"
-  horizontal
->
-  Follow our three step quickstart guide.
+<CardGroup cols={2}>
+  <Card title="Pokédex Avanzada" icon="book" href="/caracteristicas/pokedex-avanzada">
+    Búsqueda instantánea, filtros avanzados y visualización completa de datos
+  </Card>
+  <Card title="Enhanced Battle UI" icon="sword" href="/caracteristicas/interfaz-mejorada">
+    Interfaz de batalla mejorada con indicadores de efectividad y mejor UX
+  </Card>
+  <Card title="Gen 9 Completa" icon="star" href="/referencia/gen-9">
+    Todos los Pokémon, movimientos, habilidades e items de Paldea
+  </Card>
+  <Card title="Sistema de Plugins" icon="puzzle-piece" href="/plugins/descripcion-general">
+    Arquitectura modular con múltiples plugins pre-instalados
+  </Card>
+  <Card title="Regalo Misterioso" icon="gift" href="/guias/regalo-misterioso">
+    Sistema completamente renovado con soporte para contraseñas por internet
+  </Card>
+  <Card title="Herramientas Debug" icon="bug" href="/caracteristicas/herramientas-debug">
+    Debug passability, terminal F3 y utilidades avanzadas para desarrollo
+  </Card>
+</CardGroup>
+
+## Comienza rápidamente
+
+<Steps>
+  <Step title="Descarga la base">
+    Descarga la última versión desde [el blog oficial](https://skyfangames.blogspot.com/2024/01/base-de-sky.html) o desde el repositorio de GitHub.
+  </Step>
+  <Step title="Extrae y ejecuta">
+    Descomprime el archivo y ejecuta `Game.exe` para probar la base con todos los mapas de ejemplo y NPCs demostrativos.
+  </Step>
+  <Step title="Explora las características">
+    Revisa los mapas de ejemplo, prueba los plugins instalados y lee la documentación para aprovechar todas las características.
+  </Step>
+</Steps>
+
+## Novedades en v1.1.2
+
+<Note>
+La versión 1.1.2 incluye importantes mejoras y correcciones que hacen esta base más estable y completa que nunca.
+</Note>
+
+- **Refactor del BetterMoveRelearner** - Mejor experiencia al recordar movimientos
+- **Incubadora mejorada** - Ahora permite elegir huevos desde el PC
+- **Ordenar y buscar en PC** - Nueva opción para organizar y encontrar Pokémon rápidamente
+- **Pokévial infinito** - Opción configurable para curación ilimitada
+- **Turbo solo en combates** - Mayor control sobre la velocidad del juego
+- **Actualizaciones de MK y Luka's Utilities** - Últimas versiones de plugins populares
+
+<Card title="Ver changelog completo" icon="clock-rotate-left" href="/changelog/v1-1-2">
+  Revisa todos los cambios, correcciones y nuevas características de cada versión
 </Card>
 
-## Make it yours
+## Recursos para desarrolladores
 
-Design a docs site that looks great and empowers your users.
+<CardGroup cols={3}>
+  <Card title="Contribuir" icon="code-branch" href="/guias/contribuir">
+    Guía para contribuir al proyecto con pull requests
+  </Card>
+  <Card title="Crear plugins" icon="puzzle-piece" href="/guias/crear-plugin">
+    Aprende a crear tus propios plugins modulares
+  </Card>
+  <Card title="PBS Reference" icon="file-code" href="/pbs/pokemon">
+    Documentación completa de archivos PBS
+  </Card>
+</CardGroup>
 
-<Columns cols={2}>
-  <Card
-    title="Edit locally"
-    icon="pen-to-square"
-    href="/development"
-  >
-    Edit your docs locally and preview them in real time.
-  </Card>
-  <Card
-    title="Customize your site"
-    icon="palette"
-    href="/essentials/settings"
-  >
-    Customize the design and colors of your site to match your brand.
-  </Card>
-    <Card
-    title="Set up navigation"
-    icon="map"
-    href="/essentials/navigation"
-  >
-    Organize your docs to help users find what they need and succeed with your product.
-  </Card>
-  <Card
-    title="API documentation"
-    icon="terminal"
-    href="/api-reference/introduction"
-  >
-    Auto-generate API documentation from OpenAPI specifications.
-  </Card>
-</Columns>
+## Créditos
 
-## Create beautiful pages
+**Creada por [Skyflyer](https://twitter.com/Sky_fangames) y [DPertierra](https://github.com/dpertierra)**
 
-Everything you need to create world-class documentation.
+Esta base está construida sobre Pokémon Essentials v21.1 e incluye contribuciones de la comunidad y múltiples scripts de autores reconocidos.
 
-<Columns cols={2}>
-  <Card
-    title="Write with MDX"
-    icon="pen-fancy"
-    href="/essentials/markdown"
-  >
-    Use MDX to style your docs pages.
-  </Card>
-  <Card
-    title="Code samples"
-    icon="code"
-    href="/essentials/code"
-  >
-    Add sample code to demonstrate how to use your product.
-  </Card>
-  <Card
-    title="Images"
-    icon="image"
-    href="/essentials/images"
-  >
-    Display images and other media.
-  </Card>
-  <Card
-    title="Reusable snippets"
-    icon="recycle"
-    href="/essentials/reusable-snippets"
-  >
-    Write once and reuse across your docs.
-  </Card>
-</Columns>
-
-## Need inspiration?
-
-<Card
-  title="See complete examples"
-  icon="stars"
-  href="https://mintlify.com/customers"
->
-  Browse our showcase of exceptional documentation sites.
+<Card title="Ver licencia y créditos completos" icon="scroll" href="https://github.com/SkyFangames/La-Base-de-Sky/blob/main/LICENSE.txt">
+  Información detallada sobre licencias y atribuciones
 </Card>

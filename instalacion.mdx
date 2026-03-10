@@ -1,0 +1,280 @@
+---
+title: "Instalación"
+description: "Guía completa para descargar e instalar La Base de Sky en tu sistema"
+---
+
+## Requisitos del sistema
+
+Antes de instalar La Base de Sky, asegúrate de cumplir con los siguientes requisitos:
+
+### Requisitos mínimos
+
+<CardGroup cols={2}>
+  <Card title="Sistema Operativo" icon="computer">
+    Windows 7/8/10/11 (32 o 64 bits)
+  </Card>
+  <Card title="Procesador" icon="microchip">
+    Intel Core 2 Duo o equivalente
+  </Card>
+  <Card title="Memoria RAM" icon="memory">
+    2 GB mínimo (4 GB recomendado)
+  </Card>
+  <Card title="Espacio en disco" icon="hard-drive">
+    500 MB libres
+  </Card>
+</CardGroup>
+
+<Note>
+La base también funciona en Linux usando Wine o en Android usando Joiplay (con limitaciones).
+</Note>
+
+## Descarga
+
+<Steps>
+  <Step title="Accede al sitio oficial">
+    Visita el [blog de Sky Fangames](https://skyfangames.blogspot.com/2024/01/base-de-sky.html) donde se publica la última versión estable.
+  </Step>
+  
+  <Step title="Descarga el archivo">
+    Haz clic en el enlace de descarga de la última versión (actualmente v1.1.2). El archivo tiene aproximadamente 400-500 MB.
+    
+    <Warning>
+    Asegúrate de descargar desde el sitio oficial o desde el repositorio de GitHub para evitar versiones modificadas o con malware.
+    </Warning>
+  </Step>
+  
+  <Step title="Descarga desde GitHub (alternativa)">
+    También puedes descargar directamente desde [GitHub Releases](https://github.com/SkyFangames/La-Base-de-Sky/releases):
+    
+    1. Ve a la sección de Releases
+    2. Selecciona la última versión
+    3. Descarga el archivo .zip o .rar
+  </Step>
+</Steps>
+
+## Instalación
+
+### En Windows
+
+<Steps>
+  <Step title="Extrae el archivo">
+    Descomprime el archivo descargado en una carpeta de tu elección. Se recomienda una ruta sin espacios ni caracteres especiales:
+    
+    ```
+    Recomendado: C:\Juegos\LaBaseDeSky\
+    Evitar: C:\Mis Documentos\Juegos\La Base de Sky con Ñ\
+    ```
+  </Step>
+  
+  <Step title="Verifica los archivos">
+    Asegúrate de que la carpeta extraída contenga:
+    
+    - `Game.exe` (ejecutable principal)
+    - `LA BASE DE SKY/` (carpeta con el juego)
+    - `PBS/` (datos de Pokémon)
+    - `Plugins/` (plugins instalados)
+    - Carpetas: Audio, Data, Graphics, Fonts
+  </Step>
+  
+  <Step title="Primera ejecución">
+    Haz doble clic en `Game.exe` para iniciar la base. La primera vez puede tardar un poco mientras se cargan todos los recursos.
+    
+    <Info>
+    Si aparece una advertencia de Windows Defender, selecciona "Más información" y luego "Ejecutar de todos modos". Esto es normal para ejecutables de RPG Maker XP.
+    </Info>
+  </Step>
+</Steps>
+
+### En Linux (usando Wine)
+
+<Steps>
+  <Step title="Instala Wine">
+    ```bash
+    # Ubuntu/Debian
+    sudo apt install wine wine64
+    
+    # Fedora
+    sudo dnf install wine
+    
+    # Arch Linux
+    sudo pacman -S wine
+    ```
+  </Step>
+  
+  <Step title="Extrae y ejecuta">
+    ```bash
+    # Extrae el archivo
+    unzip LaBaseDeSky-v1.1.2.zip
+    
+    # Navega a la carpeta
+    cd LaBaseDeSky
+    
+    # Ejecuta con Wine
+    wine Game.exe
+    ```
+  </Step>
+</Steps>
+
+### En Android (usando Joiplay)
+
+<Warning>
+La versión de Android usando Joiplay tiene limitaciones y puede experimentar problemas de rendimiento. Se recomienda usar la versión de Windows cuando sea posible.
+</Warning>
+
+<Steps>
+  <Step title="Instala Joiplay">
+    Descarga Joiplay desde Google Play Store:
+    - Joiplay (app principal)
+    - Joiplay RPG Maker Plugin
+  </Step>
+  
+  <Step title="Transfiere los archivos">
+    Copia toda la carpeta de La Base de Sky a tu dispositivo Android (se recomienda la carpeta Downloads).
+  </Step>
+  
+  <Step title="Configura en Joiplay">
+    1. Abre Joiplay
+    2. Toca el botón +
+    3. Navega hasta la carpeta del juego
+    4. Selecciona `Game.exe`
+    5. Configura el nombre y guarda
+  </Step>
+</Steps>
+
+## Verificación de la instalación
+
+### Mapas de prueba
+
+La base incluye varios mapas de ejemplo para probar las características:
+
+<Accordion title="Pueblo Inicio">
+  - NPCs que explican características básicas
+  - Acceso al PC y sistemas principales
+  - Ejemplos de diálogos y eventos
+</Accordion>
+
+<Accordion title="Mapa de Plugins">
+  - NPCs que demuestran cada plugin
+  - Configuradores de características especiales
+  - Ejemplos de uso avanzado
+</Accordion>
+
+<Accordion title="Mapas de rutas">
+  - Encuentros salvajes configurados
+  - NPCs entrenadores
+  - Ejemplos de eventos de mapa
+</Accordion>
+
+### Prueba de características
+
+Verifica que todo funciona correctamente:
+
+<Steps>
+  <Step title="Iniciar nueva partida">
+    Desde el menú principal, selecciona "Nueva partida" y crea tu personaje.
+  </Step>
+  
+  <Step title="Probar controles">
+    - Flechas: Movimiento
+    - Z / Enter: Confirmar / Interactuar
+    - X / Esc: Cancelar / Menú
+    - C: Correr
+    - D: Acceso rápido (varies según contexto)
+    - F1: Configuración de teclas
+  </Step>
+  
+  <Step title="Verificar plugins">
+    Abre el menú (X), ve a Opciones, y verifica que puedas acceder a todas las características mejoradas.
+  </Step>
+</Steps>
+
+## Solución de problemas comunes
+
+### El juego no inicia
+
+<Accordion title="Error de RGSS">
+  **Problema:** Aparece un error relacionado con RGSS104E.dll
+  
+  **Solución:** 
+  - Asegúrate de extraer TODOS los archivos del zip
+  - Verifica que RGSS104E.dll esté en la carpeta principal
+  - Reinstala Microsoft Visual C++ Redistributable
+</Accordion>
+
+<Accordion title="Pantalla negra al iniciar">
+  **Problema:** El juego inicia pero se queda en pantalla negra
+  
+  **Solución:**
+  - Espera 30-60 segundos (primera carga)
+  - Desactiva el antivirus temporalmente
+  - Verifica que la carpeta Graphics tenga todos los archivos
+</Accordion>
+
+<Accordion title="Error de fuentes">
+  **Problema:** Texto no se muestra o aparece en cuadros
+  
+  **Solución:**
+  - Instala las fuentes de la carpeta Fonts/
+  - En mkxp.json, verifica la configuración de fuentes
+</Accordion>
+
+### Problemas de rendimiento
+
+<Tip>
+**Para mejorar el rendimiento:**
+
+1. En `mkxp.json`, configura:
+   ```json
+   "vsync": true,
+   "fixedFramerate": 60
+   ```
+
+2. Cierra otros programas pesados
+3. Actualiza tus drivers de gráficos
+4. Usa el turbo speed solo cuando necesites (puede causar lag en algunos sistemas)
+</Tip>
+
+## Actualizaciones
+
+### Cómo actualizar a una nueva versión
+
+<Warning>
+Antes de actualizar, siempre haz una copia de seguridad de tu carpeta de partidas guardadas.
+</Warning>
+
+<Steps>
+  <Step title="Respalda tus partidas">
+    Las partidas guardadas están en:
+    - Windows: `C:\Users\TuUsuario\Saved Games\Pokemon Essentials\`
+    - O usa el acceso directo "Partida guardada.lnk" incluido en la base
+  </Step>
+  
+  <Step title="Descarga la nueva versión">
+    Descarga la actualización desde el blog oficial o GitHub.
+  </Step>
+  
+  <Step title="Extrae en nueva carpeta">
+    NO sobreescribas la versión anterior. Extrae en una carpeta nueva.
+  </Step>
+  
+  <Step title="Transfiere personalizaciones">
+    Si modificaste archivos PBS, scripts o gráficos, cópialos manualmente a la nueva versión.
+  </Step>
+</Steps>
+
+## Próximos pasos
+
+<CardGroup cols={2}>
+  <Card title="Inicio rápido" icon="rocket" href="/inicio-rapido">
+    Aprende a usar las características principales
+  </Card>
+  <Card title="Configuración" icon="gear" href="/configuracion/ajustes-generales">
+    Personaliza la base según tus necesidades
+  </Card>
+  <Card title="Plugins" icon="puzzle-piece" href="/plugins/descripcion-general">
+    Explora los plugins incluidos
+  </Card>
+  <Card title="Contribuir" icon="code-branch" href="/guias/contribuir">
+    Aprende a contribuir al proyecto
+  </Card>
+</CardGroup>

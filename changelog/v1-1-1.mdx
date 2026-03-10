@@ -1,0 +1,43 @@
+---
+title: "Changelog v1.1.1"
+description: "Cambios y mejoras de la versión 1.1.1"
+---
+
+## Añadidos v1.1.1
+
+### Mejoras principales
+
+- **Múltiples correcciones de bugs**
+- **MOs olvidables**: Opción para que las MOs sean olvidables
+- **Exp share por evento**: Activar por evento en lugar de al inicio
+- **Tecla D toggle**: Cerrar menú de objetos registrados con D
+- **MK actualizado**: Nueva versión del plugin
+
+### Mejoras técnicas
+
+<Accordion title="Joiplay">
+  Correcciones de errores para mejor compatibilidad con Android.
+</Accordion>
+
+<Accordion title="UI">
+  Cambios de textos para mejor adaptación a la interfaz.
+</Accordion>
+
+<Accordion title="Scripts">
+  Mejoras en scripts_combine y scripts_extract.
+</Accordion>
+
+### Configuración
+
+```ruby
+# MOs olvidables
+Settings::HMS_FORGETTABLE = true
+
+# Exp share por evento
+Settings::EXPSHARE_ENABLED = false
+$player.has_exp_all = true  # Activar por evento
+```
+
+<Card title="v1.1.0" icon="clock-rotate-left" href="/changelog/v1-1-0">
+  Ver changelog v1.1.0
+</Card>

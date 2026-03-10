@@ -1,0 +1,40 @@
+---
+title: "Sistema de Combate"
+description: "Mecánicas de combate mejoradas con Enhanced UI y soporte Gen 9"
+---
+
+## Enhanced Battle UI
+
+Interfaz de batalla mejorada con:
+
+- **Indicadores de efectividad**: Muestra super efectivo/poco efectivo
+- **Backgrounds por tipo**: Fondos que reflejan el tipo del movimiento
+- **Prompts visuales**: Botones de ayuda configurables
+- **Stats visibles**: Modificadores de stats durante batalla
+
+## Configuración
+
+```ruby
+# Settings module
+Settings::USE_MOVE_TYPE_BACKGROUNDS = true
+Settings::SHOW_TYPE_EFFECTIVENESS_FOR_NEW_SPECIES = false
+Settings::UI_PROMPT_DISPLAY = 2  # 0=off, 1=always, 2=hide after 2s
+```
+
+## Movimientos Gen 9
+
+Todos los movimientos de Paldea incluidos:
+- Movimientos de patadas (flag `Kicking`)
+- Actualizaciones de Ladrón
+- Correcciones IA para moves de Paldea y Hisui
+
+## Animaciones
+
+Animaciones actualizadas (2022-04-20):
+- Más de 800 movimientos animados
+- Efectos visuales mejorados
+- Validaciones para evitar crashes
+
+<Note>
+Animaciones en Graphics/Plugins/Deluxe Battle Kit/
+</Note>

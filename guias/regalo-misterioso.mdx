@@ -1,0 +1,51 @@
+---
+title: "Regalo Misterioso"
+description: "Sistema de Mystery Gift rehecho completamente"
+---
+
+## Sistema renovado
+
+**Rehecho en v1.1.0**: Sistema completamente nuevo.
+
+## Características
+
+<CardGroup cols={2}>
+  <Card title="Regalos por internet" icon="wifi">
+    Con contraseña
+  </Card>
+  <Card title="Múltiples tipos" icon="gift">
+    Pokémon, items, huevos
+  </Card>
+  <Card title="Configuración avanzada" icon="sliders">
+    IVs, EVs, movimientos custom
+  </Card>
+  <Card title="Validaciones" icon="shield-check">
+    Control de reclamo
+  </Card>
+</CardGroup>
+
+## Crear un regalo
+
+```ruby
+# Configurar regalo
+mystery_gift = {
+  :type => :pokemon,
+  :species => :PIKACHU,
+  :level => 25,
+  :moves => [:THUNDERBOLT,:QUICKATTACK,:IRONTAIL,:THUNDERWAVE],
+  :iv => [31,31,31,31,31,31],
+  :password => "PIKACHU2024"
+}
+```
+
+## Usar el sistema
+
+En el juego:
+1. Acceder al menú Mystery Gift
+2. Seleccionar "Recibir por Internet"
+3. Ingresar contraseña
+4. Recibir regalo
+
+<Note>
+Ver NPC demostrativo en el Mapa de Plugins.
+</Note>

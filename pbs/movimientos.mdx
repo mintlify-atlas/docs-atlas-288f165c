@@ -1,0 +1,59 @@
+---
+title: "PBS: Movimientos"
+description: "Formato de archivo moves.txt"
+---
+
+## Archivo moves.txt
+
+Define todos los movimientos del juego.
+
+### Estructura
+
+```
+[TACKLE]
+Name = Placaje
+Type = NORMAL
+Category = Physical
+Power = 40
+Accuracy = 100
+TotalPP = 35
+Target = NearOther
+Priority = 0
+FunctionCode = None
+EffectChance = 0
+Description = Embiste con todo el cuerpo.
+```
+
+### Campos
+
+- **Type**: Tipo del movimiento
+- **Category**: Physical, Special, o Status
+- **Power**: Potencia base
+- **Accuracy**: Precisión (0-100)
+- **TotalPP**: PP máximos
+- **Target**: Objetivo del movimiento
+- **FunctionCode**: Efecto especial
+
+## Flags especiales
+
+**Agregado en v1.1.0**: Flag `Kicking` para movimientos de patadas.
+
+```
+[HIGHJUMPKICK]
+Flags = Contact,Kicking
+```
+
+```ruby
+# Verificar si es movimiento de patada
+if move.kickingMove?
+  # Lógica especial
+end
+```
+
+## Gen 9
+
+Todos los movimientos de Paldea incluidos con correcciones de IA.
+
+<Card title="Habilidades" icon="sparkles" href="/pbs/habilidades">
+  Ver formato de habilidades
+</Card>

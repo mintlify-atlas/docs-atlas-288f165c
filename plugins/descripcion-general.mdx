@@ -1,0 +1,181 @@
+---
+title: 'Descripción General de Plugins'
+description: 'Sistema de plugins y catálogo completo de plugins incluidos en La Base de Sky'
+icon: 'plug'
+---
+
+## Introducción
+
+La Base de Sky v21.1 incluye un sistema completo de plugins que extienden y mejoran las funcionalidades base de Pokémon Essentials. Estos plugins han sido cuidadosamente seleccionados e integrados para proporcionar una experiencia de desarrollo mejorada.
+
+## Plugins Principales
+
+<CardGroup cols={2}>
+  <Card title="Enhanced Pokemon UI" icon="palette" href="/plugins/enhanced-ui">
+    Sistema de interfaz mejorada para Pokémon con gráficos personalizados
+  </Card>
+  
+  <Card title="Luka's Scripting Utilities" icon="code" href="/plugins/luka-utilities">
+    Conjunto de utilidades de scripting y extensiones para desarrollo
+  </Card>
+  
+  <Card title="Modular UI Scenes" icon="window" href="/plugins/modular-ui">
+    Sistema modular para crear y gestionar escenas de UI personalizadas
+  </Card>
+  
+  <Card title="Box Auto-Sort" icon="sort" href="/plugins/auto-sort">
+    Sistema de ordenamiento automático para cajas de almacenamiento
+  </Card>
+</CardGroup>
+
+## Plugins Incluidos
+
+### Plugins MUI (Modular UI)
+
+Estos plugins requieren el sistema **Modular UI Scenes** como dependencia base:
+
+- **[MUI] Enhanced Pokemon UI** (v1.0.6) - Interfaz mejorada para Pokémon
+- **[MUI] Pokedex Data Page** (v2.0.4) - Página de datos detallados para la Pokédex
+- **Lin's IV EV Summary Screen** (v1.2.1) - Pantalla de resumen de IVs y EVs
+
+### Plugins de Utilidades
+
+- **Luka's Scripting Utilities** (v4.1.0) - Utilidades de scripting avanzadas
+- **Marin's Scripting Utilities** - Utilidades complementarias de scripting
+- **Tileset Rearranger** - Herramienta para reorganizar tilesets
+
+### Plugins de Funcionalidad
+
+- **Box Auto-Sort** (v1.0.0) - Sistema de ordenamiento de cajas
+- **Easy Mouse** - Soporte mejorado para mouse
+- **Event Reporting** - Sistema de reporte de eventos para debugging
+
+## Sistema de Dependencias
+
+<Note>
+Muchos plugins en La Base de Sky tienen dependencias entre sí. El sistema de plugins maneja automáticamente la verificación de versiones y dependencias.
+</Note>
+
+### Jerarquía de Dependencias
+
+```
+v21.1 Hotfixes (1.0.6)
+  └── Modular UI Scenes (2.0.9)
+      ├── Enhanced Pokemon UI (1.0.6)
+      ├── Pokedex Data Page (2.0.4)
+      └── Lin's IV EV Summary Screen (1.2.1)
+
+Luka's Scripting Utilities (4.1.0)
+  └── Marin's Scripting Utilities (1.7) [Opcional]
+```
+
+## Gestión de Plugins
+
+### Habilitar/Deshabilitar Plugins
+
+Puedes controlar qué plugins están activos editando el campo `Disabled` en el archivo `meta.txt` de cada plugin:
+
+```ruby
+# En Plugins/[Nombre del Plugin]/meta.txt
+Name         = Nombre del Plugin
+Version      = 1.0.0
+Disabled     = true  # true para deshabilitar, false o vacío para habilitar
+```
+
+### Prioridad de Carga
+
+Algunos plugins definen un orden de carga específico:
+
+```ruby
+First        = True   # Se carga primero
+Priority     = 3      # Prioridad de carga (números mayores = mayor prioridad)
+```
+
+<Warning>
+No deshabilites plugins que sean dependencias de otros plugins activos. Esto puede causar errores en el juego.
+</Warning>
+
+## Configuración Global
+
+La mayoría de los plugins pueden configurarse a través del módulo `Settings` en:
+
+```
+Plugins/[Nombre del Plugin]/[000] Settings.rb
+```
+
+O en el archivo global:
+
+```
+Data/PluginScripts/PluginSettings.rb
+```
+
+## Verificación de Plugins
+
+El sistema incluye verificación automática de compatibilidad de versiones:
+
+```ruby
+# Verifica si un plugin está instalado
+PluginManager.installed?("Nombre del Plugin")
+
+# Verifica versión mínima
+PluginManager.installed?("Nombre del Plugin", "1.0.0", true)
+
+# Obtiene la versión instalada
+PluginManager.version("Nombre del Plugin")
+
+# Obtiene el enlace del plugin
+PluginManager.link("Nombre del Plugin")
+```
+
+## Recursos y Créditos
+
+### Autores Principales
+
+- **Lucidious89** - Modular UI Scenes, Enhanced Pokemon UI, Pokedex Data Page
+- **Luka S.J.** - Luka's Scripting Utilities
+- **LinKazamine** - Lin's IV EV Summary Screen
+- **Marin** - Marin's Scripting Utilities
+- **NoNonever & DPertierra** - Box Auto-Sort
+- **Skyflyer** - Colaboraciones en varios plugins
+
+### Enlaces Útiles
+
+<CardGroup cols={2}>
+  <Card title="Relic Castle" icon="castle" href="https://reliccastle.com">
+    Comunidad principal de recursos para Pokémon Essentials
+  </Card>
+  
+  <Card title="Pokécommunity" icon="users" href="https://www.pokecommunity.com">
+    Foro de desarrollo de juegos Pokémon
+  </Card>
+  
+  <Card title="Eevee Expo" icon="star" href="https://eeveeexpo.com">
+    Repositorio de recursos y plugins
+  </Card>
+  
+  <Card title="Luka-SJ Resources" icon="link" href="https://luka-sj.com/res/luts">
+    Recursos oficiales de Luka S.J.
+  </Card>
+</CardGroup>
+
+## Próximos Pasos
+
+Explora la documentación detallada de cada plugin:
+
+<CardGroup cols={2}>
+  <Card title="Enhanced Pokemon UI" icon="palette" href="/plugins/enhanced-ui">
+    Aprende a personalizar la UI de Pokémon
+  </Card>
+  
+  <Card title="Luka's Utilities" icon="code" href="/plugins/luka-utilities">
+    Descubre utilidades de scripting avanzadas
+  </Card>
+  
+  <Card title="Modular UI Scenes" icon="window" href="/plugins/modular-ui">
+    Crea escenas de UI modulares
+  </Card>
+  
+  <Card title="Box Auto-Sort" icon="sort" href="/plugins/auto-sort">
+    Implementa ordenamiento automático
+  </Card>
+</CardGroup>

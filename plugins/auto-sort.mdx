@@ -1,0 +1,546 @@
+---
+title: 'Box Auto-Sort'
+description: 'Sistema completo de ordenamiento automático para cajas de almacenamiento de Pokémon con 12 métodos diferentes'
+icon: 'sort'
+---
+
+## Descripción
+
+**Box Auto-Sort** es un plugin que añade funcionalidad de ordenamiento automático al sistema de almacenamiento de PC en Pokémon Essentials. Permite organizar los Pokémon en las cajas usando múltiples criterios de ordenamiento con vista previa opcional.
+
+<Note>
+**Versión:** 1.0.0  
+**Compatible con:** Pokémon Essentials v21.1  
+**Autores:** NoNonever, DPertierra  
+**Enlace:** [Eevee Expo](https://eeveeexpo.com/resources/1733/)
+</Note>
+
+## Características Principales
+
+<CardGroup cols={2}>
+  <Card title="12 Métodos de Ordenamiento" icon="list-ol">
+    Múltiples criterios para organizar tus Pokémon
+  </Card>
+  
+  <Card title="Sistema de Vista Previa" icon="eye">
+    Visualiza el resultado antes de aplicar cambios
+  </Card>
+  
+  <Card title="Integración Automática" icon="plug">
+    Se añade automáticamente al menú de cajas
+  </Card>
+  
+  <Card title="Compatible con Otros Sistemas" icon="handshake">
+    Funciona con BW Storage y Storage System Utilities
+  </Card>
+</CardGroup>
+
+## Instalación y Configuración
+
+### Configuración Básica
+
+```ruby
+# En 000_Settings.rb
+module BoxAutoSort
+  # Habilitar/deshabilitar el sistema completo
+  ENABLED = true
+  
+  # Mostrar vista previa antes de ordenar (recomendado)
+  SHOW_PREVIEW = false
+  
+  # Número máximo de Pokémon a mostrar en vista previa
+  PREVIEW_COUNT = 30
+end
+```
+
+<Warning>
+Si `SHOW_PREVIEW` está en `false`, los cambios se aplicarán inmediatamente sin confirmación. Se recomienda dejarlo en `true` para evitar ordenamientos accidentales.
+</Warning>
+
+## Métodos de Ordenamiento
+
+### 1. Por Nivel (Level)
+
+<CardGroup cols={2}>
+  <Card title="Nivel Ascendente" icon="arrow-up">
+    `:LEVEL_ASC` - Ordena del nivel 1 al 100
+  </Card>
+  
+  <Card title="Nivel Descendente" icon="arrow-down">
+    `:LEVEL_DESC` - Ordena del nivel 100 al 1
+  </Card>
+</CardGroup>
+
+```ruby
+# Ejemplo de uso directo
+sorter = BoxAutoSort::BoxSorter.new($PokemonStorage, 0)
+sorter.sort_pokemon(:LEVEL_ASC)   # Menor a mayor
+sorter.sort_pokemon(:LEVEL_DESC)  # Mayor a menor
+```
+
+### 2. Alfabético (Alphabetical)
+
+<CardGroup cols={2}>
+  <Card title="A-Z" icon="arrow-up-a-z">
+    `:ALPHABET` - Ordena alfabéticamente A→Z
+  </Card>
+  
+  <Card title="Z-A" icon="arrow-down-z-a">
+    `:ALPHABET_REV` - Ordena alfabéticamente Z→A
+  </Card>
+</CardGroup>
+
+```ruby
+# Ordenar alfabéticamente
+sorter.sort_pokemon(:ALPHABET)      # A-Z
+sorter.sort_pokemon(:ALPHABET_REV)  # Z-A
+```
+
+### 3. Por Tipo (Type)
+
+<CardGroup cols={2}>
+  <Card title="Tipo Primario" icon="1">
+    `:TYPE_PRIMARY` - Solo considera el tipo primario
+  </Card>
+  
+  <Card title="Combinación de Tipos" icon="layer-group">
+    `:TYPE_DUAL` - Considera ambos tipos del Pokémon
+  </Card>
+</CardGroup>
+
+```ruby
+# Ordenamiento por tipo
+sorter.sort_pokemon(:TYPE_PRIMARY)  # Por tipo primario
+sorter.sort_pokemon(:TYPE_DUAL)     # Por combinación completa
+
+# Orden de tipos (por ID):
+# NORMAL, FIGHTING, FLYING, POISON, GROUND, ROCK, BUG, GHOST, STEEL,
+# FIRE, WATER, GRASS, ELECTRIC, PSYCHIC, ICE, DRAGON, DARK, FAIRY
+```
+
+### 4. Por Fecha de Captura (Catch Date)
+
+```ruby
+# Ordena por fecha de captura (más recientes primero)
+sorter.sort_pokemon(:CATCH_DATE)
+```
+
+<Note>
+Los Pokémon capturados más recientemente aparecerán primero. Si dos Pokémon se capturaron el mismo día, se ordenan por hora de captura.
+</Note>
+
+### 5. Shiny Primero (Shiny First)
+
+```ruby
+# Los Pokémon shiny aparecen primero
+sorter.sort_pokemon(:SHINY_FIRST)
+```
+
+Organiza colocando todos los Pokémon shiny al inicio de la caja, seguidos de los Pokémon normales.
+
+### 6. Por Número de Pokédex Nacional (National Dex)
+
+```ruby
+# Ordena por número de Pokédex Nacional
+sorter.sort_pokemon(:SPECIES_ID)
+```
+
+Ejemplo de orden: Bulbasaur (#001) → Ivysaur (#002) → Venusaur (#003) → ...
+
+### 7. Por Formas (Forms)
+
+```ruby
+# Ordena por especie y forma
+sorter.sort_pokemon(:FORM_ID)
+```
+
+Agrupa Pokémon de la misma especie, ordenando sus formas:
+- Rotom normal → Rotom Calor → Rotom Lavado → Rotom Frío → etc.
+
+### 8. Por Amistad (Friendship)
+
+```ruby
+# Ordena por nivel de amistad (mayor a menor)
+sorter.sort_pokemon(:FRIENDSHIP)
+```
+
+Los Pokémon con mayor amistad (255) aparecen primero.
+
+### 9. Por Naturaleza (Nature)
+
+```ruby
+# Ordena por naturaleza (alfabéticamente)
+sorter.sort_pokemon(:NATURE)
+```
+
+Ejemplo de orden: Activa → Agitada → Alegre → ... → Tímida
+
+## Uso desde el Juego
+
+### Método 1: Menú de Comandos de Caja
+
+```ruby
+# El jugador puede acceder desde:
+# 1. Abrir el PC
+# 2. Hacer clic en el nombre de cualquier caja
+# 3. Seleccionar "Ordenar" del menú
+# 4. Elegir método de ordenamiento
+# 5. Confirmar en la vista previa
+```
+
+### Método 2: Menú Principal del PC
+
+```ruby
+# También disponible desde:
+# 1. Acceder al PC desde cualquier Centro Pokémon
+# 2. Seleccionar "Box Auto-Sort" del menú principal
+# 3. Elegir qué caja ordenar
+# 4. Seleccionar método de ordenamiento
+```
+
+## API para Desarrolladores
+
+### Clase BoxSorter
+
+```ruby
+# Crear instancia de ordenador
+sorter = BoxAutoSort::BoxSorter.new(storage, box_index)
+
+# storage: $PokemonStorage
+# box_index: Índice de la caja (0-based)
+```
+
+### Métodos Principales
+
+#### Obtener Lista de Pokémon
+
+```ruby
+# Obtener todos los Pokémon en la caja (excluye espacios vacíos)
+pokemon_list = sorter.get_pokemon_list
+
+# Retorna: Array de [pokemon, posicion]
+# Ejemplo: [[pokemon1, 0], [pokemon2, 3], [pokemon5, 8]]
+```
+
+#### Ordenar Pokémon
+
+```ruby
+# Aplicar ordenamiento
+success = sorter.sort_pokemon(:LEVEL_ASC)
+
+# Retorna: true si se ordenó correctamente, false si hubo error
+if success
+  pbMessage("¡Caja ordenada exitosamente!")
+else
+  pbMessage("No se pudo ordenar la caja.")
+end
+```
+
+#### Vista Previa de Ordenamiento
+
+```ruby
+# Obtener vista previa sin aplicar cambios
+preview = sorter.preview_sort(:LEVEL_ASC)
+
+# Retorna: Array ordenado de [pokemon, posicion_original]
+# Los cambios NO se aplican a la caja
+```
+
+### Métodos de Comparación
+
+Estos métodos son usados internamente pero pueden ser útiles:
+
+```ruby
+# Comparar por tipo primario
+def compare_types(pkmn1, pkmn2)
+  type1_id = GameData::Type.get(pkmn1.type1).id_number
+  type2_id = GameData::Type.get(pkmn2.type1).id_number
+  return type1_id <=> type2_id
+end
+
+# Comparar por tipo dual
+def compare_types_dual(pkmn1, pkmn2)
+  # Primero compara tipo primario, luego secundario
+  result = compare_types(pkmn1, pkmn2)
+  return result if result != 0
+  
+  type1_id = GameData::Type.get(pkmn1.type2).id_number
+  type2_id = GameData::Type.get(pkmn2.type2).id_number
+  return type1_id <=> type2_id
+end
+
+# Comparar por fecha de captura
+def compare_catch_date(pkmn1, pkmn2)
+  return pkmn2.timeReceived <=> pkmn1.timeReceived
+end
+
+# Comparar shiny primero
+def compare_shiny_first(pkmn1, pkmn2)
+  return -1 if pkmn1.shiny? && !pkmn2.shiny?
+  return 1 if !pkmn1.shiny? && pkmn2.shiny?
+  return 0
+end
+
+# Comparar por ID de especie
+def compare_species_id(pkmn1, pkmn2)
+  id1 = GameData::Species.get(pkmn1.species).id_number
+  id2 = GameData::Species.get(pkmn2.species).id_number
+  return id1 <=> id2
+end
+
+# Comparar por especie y forma
+def compare_form_id(pkmn1, pkmn2)
+  result = compare_species_id(pkmn1, pkmn2)
+  return result if result != 0
+  return pkmn1.form <=> pkmn2.form
+end
+```
+
+## Ejemplos Avanzados
+
+### Ejemplo 1: Ordenamiento Personalizado desde Script
+
+```ruby
+# Ordenar la primera caja por nivel
+def sort_first_box_by_level
+  return if !$PokemonStorage
+  
+  sorter = BoxAutoSort::BoxSorter.new($PokemonStorage, 0)
+  
+  if sorter.sort_pokemon(:LEVEL_DESC)
+    pbMessage("¡La primera caja ha sido ordenada por nivel!")
+  else
+    pbMessage("La caja está vacía o hubo un error.")
+  end
+end
+
+# Llamar desde evento
+sort_first_box_by_level
+```
+
+### Ejemplo 2: Ordenar Todas las Cajas
+
+```ruby
+def sort_all_boxes(method = :LEVEL_ASC)
+  return if !$PokemonStorage
+  
+  sorted_count = 0
+  
+  $PokemonStorage.maxBoxes.times do |box_index|
+    sorter = BoxAutoSort::BoxSorter.new($PokemonStorage, box_index)
+    sorted_count += 1 if sorter.sort_pokemon(method)
+  end
+  
+  pbMessage("Se ordenaron #{sorted_count} cajas.")
+end
+
+# Uso
+sort_all_boxes(:SPECIES_ID)  # Ordenar todas por Pokédex Nacional
+```
+
+### Ejemplo 3: Sistema de Vista Previa Personalizado
+
+```ruby
+def custom_sort_with_preview(box_index, method)
+  sorter = BoxAutoSort::BoxSorter.new($PokemonStorage, box_index)
+  
+  # Obtener vista previa
+  preview = sorter.preview_sort(method)
+  
+  if preview.empty?
+    pbMessage("La caja está vacía.")
+    return
+  end
+  
+  # Mostrar primeros 5 Pokémon del resultado
+  message = "Primeros 5 Pokémon después de ordenar:\n"
+  preview.first(5).each_with_index do |data, i|
+    pokemon = data[0]
+    message += "#{i+1}. #{pokemon.name} Nv.#{pokemon.level}\n"
+  end
+  
+  pbMessage(message)
+  
+  # Confirmar
+  if pbConfirmMessage("¿Aplicar este ordenamiento?")
+    sorter.sort_pokemon(method)
+    pbMessage("¡Caja ordenada!")
+  end
+end
+```
+
+### Ejemplo 4: Ordenamiento Condicional
+
+```ruby
+def smart_sort_box(box_index)
+  sorter = BoxAutoSort::BoxSorter.new($PokemonStorage, box_index)
+  pokemon_list = sorter.get_pokemon_list
+  
+  return if pokemon_list.empty?
+  
+  # Decidir método basado en contenido de la caja
+  has_shinies = pokemon_list.any? { |pkmn, pos| pkmn[0].shiny? }
+  all_same_species = pokemon_list.all? { |pkmn, pos| pkmn[0].species == pokemon_list[0][0].species }
+  
+  if has_shinies
+    # Si hay shinies, ponerlos primero
+    sorter.sort_pokemon(:SHINY_FIRST)
+    pbMessage("Caja ordenada: Shiny primero")
+  elsif all_same_species
+    # Si todos son la misma especie, ordenar por nivel
+    sorter.sort_pokemon(:LEVEL_DESC)
+    pbMessage("Caja ordenada: Por nivel")
+  else
+    # Por defecto, ordenar por Pokédex
+    sorter.sort_pokemon(:SPECIES_ID)
+    pbMessage("Caja ordenada: Por Pokédex Nacional")
+  end
+end
+```
+
+### Ejemplo 5: Integración con Menú Personalizado
+
+```ruby
+def show_sort_menu
+  commands = [
+    "Nivel (↑)",
+    "Nivel (↓)",
+    "Alfabético (A-Z)",
+    "Por Tipo",
+    "Shiny Primero",
+    "Pokédex Nacional",
+    "Por Amistad",
+    "Cancelar"
+  ]
+  
+  cmd = pbMessage("¿Cómo ordenar?", commands, -1)
+  
+  return if cmd < 0 || cmd == commands.length - 1
+  
+  methods = [
+    :LEVEL_ASC,
+    :LEVEL_DESC,
+    :ALPHABET,
+    :TYPE_PRIMARY,
+    :SHINY_FIRST,
+    :SPECIES_ID,
+    :FRIENDSHIP
+  ]
+  
+  box = $PokemonStorage.currentBox
+  sorter = BoxAutoSort::BoxSorter.new($PokemonStorage, box)
+  
+  if sorter.sort_pokemon(methods[cmd])
+    pbMessage("¡Caja ordenada exitosamente!")
+  else
+    pbMessage("No se pudo ordenar la caja.")
+  end
+end
+```
+
+## Compatibilidad con Otros Plugins
+
+### BW Storage System
+
+```ruby
+# Box Auto-Sort detecta automáticamente BW Storage System
+# y se integra con su interfaz
+if PluginManager.installed?("BW Storage System")
+  # Funcionalidad especial para BW Storage
+end
+```
+
+### Storage System Utilities
+
+```ruby
+# Compatible con Storage System Utilities
+if PluginManager.installed?("Storage System Utilities")
+  # Se añade al menú extendido
+end
+```
+
+## Solución de Problemas
+
+<Warning>
+**Error: "BoxAutoSort::BoxSorter not found"**
+
+Asegúrate de que el plugin está habilitado:
+```ruby
+module BoxAutoSort
+  ENABLED = true
+end
+```
+</Warning>
+
+<Note>
+**Los Pokémon no se ordenan como esperaba**
+
+Verifica:
+1. Que la caja no esté vacía
+2. Que el método de ordenamiento sea válido
+3. Que `SHOW_PREVIEW` esté configurado correctamente
+</Note>
+
+<Note>
+**La opción "Ordenar" no aparece en el menú**
+
+1. Verifica que `ENABLED = true`
+2. Comprueba que no haya conflictos con otros plugins de almacenamiento
+3. Asegúrate de estar usando Essentials v21.1
+</Note>
+
+## Configuración Avanzada
+
+### Personalizar Nombres de Métodos
+
+Puedes traducir o personalizar los nombres mostrados:
+
+```ruby
+# Añadir en tu script personalizado
+module BoxAutoSort
+  SORT_METHOD_NAMES = {
+    :LEVEL_ASC     => "Nivel Bajo → Alto",
+    :LEVEL_DESC    => "Nivel Alto → Bajo",
+    :ALPHABET      => "Nombre A-Z",
+    :ALPHABET_REV  => "Nombre Z-A",
+    :TYPE_PRIMARY  => "Tipo Principal",
+    :TYPE_DUAL     => "Combinación de Tipos",
+    :CATCH_DATE    => "Fecha de Captura",
+    :SHINY_FIRST   => "Variocolor Primero",
+    :SPECIES_ID    => "Número de Pokédex",
+    :FORM_ID       => "Especie y Forma",
+    :FRIENDSHIP    => "Nivel de Amistad",
+    :NATURE        => "Naturaleza"
+  }
+end
+```
+
+## Rendimiento
+
+<Note>
+**Optimización:**
+
+- El ordenamiento es muy rápido para cajas con < 30 Pokémon
+- Para cajas llenas, puede tomar 1-2 segundos
+- El algoritmo de ordenamiento es O(n log n)
+- La vista previa no afecta el rendimiento significativamente
+</Note>
+
+## Créditos y Enlaces
+
+**Autores:** NoNonever, DPertierra  
+**Versión:** 1.0.0  
+**Compatible con:** Pokémon Essentials v21.1  
+**Enlace oficial:** [Eevee Expo - Box Auto-Sort](https://eeveeexpo.com/resources/1733/)
+
+## Páginas Relacionadas
+
+<CardGroup cols={2}>
+  <Card title="Descripción General" icon="list" href="/plugins/descripcion-general">
+    Volver al catálogo de plugins
+  </Card>
+  
+  <Card title="Enhanced Pokemon UI" icon="palette" href="/plugins/enhanced-ui">
+    Mejoras visuales para Pokémon
+  </Card>
+</CardGroup>

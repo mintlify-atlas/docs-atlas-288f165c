@@ -1,0 +1,52 @@
+---
+title: "Turbo Velocidad"
+description: "Sistema de velocidad configurable con 3 niveles"
+---
+
+## Características
+
+**Mejorado en v1.1.2**:
+
+<CardGroup cols={2}>
+  <Card title="3 velocidades" icon="gauge-high">
+    Normal, Rápido, Muy rápido
+  </Card>
+  <Card title="Solo combates" icon="swords">
+    Opción para activar solo en batallas
+  </Card>
+  <Card title="Indicador visual" icon="display">
+    Muestra velocidad actual arriba-izquierda
+  </Card>
+  <Card title="Configurable" icon="sliders">
+    Desde el menú de opciones
+  </Card>
+</CardGroup>
+
+## Controles
+
+Cambiar velocidad:
+- Desde menú de Opciones
+- Tecla configurable (por defecto F)
+
+## Solo en combates
+
+**Agregado en v1.1.2**:
+
+```ruby
+Settings::TURBO_BATTLES_ONLY = true
+```
+
+Cuando está activo:
+- Turbo funciona solo en batallas
+- Overworld a velocidad normal
+- Mejor para evitar lag
+
+## Correcciones
+
+- **v1.0.7**: Correcciones en el script
+- **v1.1.0**: Tiempo de guardado independiente del turbo
+- **v1.1.2**: Mejoras aportadas por Dracrixco
+
+<Tip>
+Usa turbo moderadamente para evitar problemas de rendimiento en sistemas antiguos.
+</Tip>

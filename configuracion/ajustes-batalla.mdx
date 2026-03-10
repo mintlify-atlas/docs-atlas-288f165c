@@ -1,0 +1,68 @@
+---
+title: "Ajustes de Batalla"
+description: "Configuración del sistema de combate"
+---
+
+## Deluxe Battle Script
+
+### Animaciones especiales
+
+```ruby
+# Mostrar animación de Mega Evolución
+Settings::SHOW_MEGA_ANIM = true
+
+# Mostrar animación de Reversión Primigenia
+Settings::SHOW_PRIMAL_ANIM = true
+```
+
+## Enhanced Battle UI
+
+### Backgrounds por tipo
+
+```ruby
+# Fondo del Move UI refleja color del tipo
+Settings::USE_MOVE_TYPE_BACKGROUNDS = true
+```
+
+### Efectividad de tipos
+
+```ruby
+# Mostrar efectividad para especies nuevas
+Settings::SHOW_TYPE_EFFECTIVENESS_FOR_NEW_SPECIES = false
+```
+
+<Warning>
+Si está en `true`, mostrará efectividad incluso para Pokémon nunca vistos.
+</Warning>
+
+### Prompts de UI
+
+```ruby
+# 0 = No mostrar
+# 1 = Siempre mostrar
+# 2 = Mostrar pero ocultar después de 2 segundos
+Settings::UI_PROMPT_DISPLAY = 2
+
+# Texto incluido en gráficos
+Settings::PROMPT_TEXT_INCLUDED_IN_GRAPHICS = true
+```
+
+## Turbo solo en combates
+
+**Agregado en v1.1.2**:
+
+```ruby
+# Activar turbo solo durante batallas
+Settings::TURBO_BATTLES_ONLY = false
+```
+
+<Tip>
+Útil para acelerar combates sin afectar la velocidad en el overworld.
+</Tip>
+
+## Pokémon debilitados
+
+```ruby
+# Sprites grisados cuando están debilitados
+Settings::GRAY_OUT_FAINTED_POKEMON = true
+```

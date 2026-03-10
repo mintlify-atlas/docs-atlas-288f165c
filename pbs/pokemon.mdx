@@ -1,0 +1,67 @@
+---
+title: "PBS: Pokémon"
+description: "Formato de archivos pokemon.txt y pokemon_forms.txt"
+---
+
+## Archivo pokemon.txt
+
+Define todos los Pokémon del juego.
+
+### Estructura básica
+
+```
+[BULBASAUR]
+Name = Bulbasaur
+Types = GRASS,POISON
+BaseStats = 45,49,49,65,65,45
+GenderRatio = FemaleOneEighth
+GrowthRate = Parabolic
+BaseEXP = 64
+EffortPoints = 0,0,0,1,0,0
+Rareness = 45
+Happiness = 70
+Abilities = OVERGROW
+HiddenAbility = CHLOROPHYLL
+Moves = 1,TACKLE,3,GROWL,7,LEECHSEED,9,VINEWHIP
+EggMoves = CURSE,INGRAIN,NATUREPOWER,PETALDANCE
+Compatibility = Monster,Grass
+EggSteps = 5120
+Height = 0.7
+Weight = 6.9
+Color = Green
+Shape = Quadruped
+Habitat = Grassland
+Category = Semilla
+Pokedex = Después de nacer, crece alimentándose durante un tiempo de los nutrientes de la semilla de su lomo.
+BattlerPlayerY = 0
+BattlerEnemyY = 14
+BattlerAltitude = 0
+Evolutions = IVYSAUR,Level,16
+```
+
+### Campos principales
+
+- **Types**: Tipo(s) del Pokémon
+- **BaseStats**: HP,Atk,Def,SpA,SpD,Spe
+- **Abilities**: Habilidades normales  
+- **HiddenAbility**: Habilidad oculta
+- **Moves**: Movimientos por nivel
+- **Evolutions**: Evoluciones y métodos
+
+## Formas alternas
+
+Archivo: `pokemon_forms.txt`
+
+```
+[MEOWTH,1]
+FormName = Alola
+Types = DARK
+BaseStats = 40,35,35,90,50,40
+Abilities = PICKUP,TECHNICIAN
+HiddenAbility = RATTLED
+Evolutions = PERSIAN,Level,28,1
+```
+
+<Note>
+Gen 9 completamente incluida con todas las evoluciones de Paldea.
+</Note>

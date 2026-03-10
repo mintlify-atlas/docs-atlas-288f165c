@@ -1,0 +1,45 @@
+---
+title: "Buscador de Salvajes"
+description: "Ver Pokémon salvajes disponibles por ruta"
+---
+
+## Características
+
+**Mejorado en v1.1.0**:
+
+<CardGroup cols={2}>
+  <Card title="Ordenado por probabilidad" icon="chart-bar">
+    Más comunes primero
+  </Card>
+  <Card title="Estados visuales" icon="eye">
+    Silueta/gris/color según captura
+  </Card>
+</CardGroup>
+
+## Estados de iconos
+
+- **Silueta negra**: Pokémon no visto
+- **Icono gris**: Visto pero no capturado
+- **Icono a color**: Capturado
+
+## Uso
+
+```ruby
+# En un evento o menú
+pbWildEncounterList
+```
+
+Muestra todos los Pokémon salvajes del mapa actual con:
+- Probabilidad de aparición
+- Niveles mín/máx
+- Estado de captura
+
+## Correcciones
+
+- **v1.1.0**: Ordenado por probabilidad
+- **v1.1.0**: Iconos visuales mejorados
+- **v1.1.2**: Quick access desde PC
+
+<Card title="Pokédex" icon="book" href="/caracteristicas/pokedex-avanzada">
+  Ver Pokédex Avanzada
+</Card>

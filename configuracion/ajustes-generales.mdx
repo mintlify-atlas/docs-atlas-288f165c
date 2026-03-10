@@ -1,0 +1,68 @@
+---
+title: "Ajustes Generales"
+description: "Configuración general de La Base de Sky"
+---
+
+## Settings Module
+
+Archivo: `LA BASE DE SKY/Data/Scripts/001_Settings/004_Settings_Extra_Base.rb`
+
+## Configuraciones principales
+
+### Objetos consumibles
+
+```ruby
+# Restaurar objetos después de combate
+Settings::RESTORE_HELD_ITEMS_AFTER_BATTLE = false
+
+# Lista negra de objetos que NO se restauran
+Settings::RESTORE_HELD_ITEMS_BLACKLIST = []
+```
+
+<Note>
+Si está activo, bayas, gemas y otros consumibles se restauran después del combate.
+</Note>
+
+### Gráficos
+
+```ruby
+# Ruta de gráficos del Deluxe Battle Kit
+Settings::DELUXE_GRAPHICS_PATH = "Graphics/Plugins/Deluxe Battle Kit/"
+
+# Ruta de gráficos de Enhanced Battle UI
+Settings::BATTLE_UI_GRAPHICS_PATH = "Graphics/Plugins/Enhanced Battle UI/"
+```
+
+### Pokémon
+
+```ruby
+# Formas de Vivillon por ID de jugador
+Settings::LINEA_DE_SPEWPA_POR_ID = true
+
+# Formas regionales por región del mapa
+Settings::REGIONAL_FORMS_DEPEND_ON_MAP_REGION = true
+```
+
+### Movimientos
+
+```ruby
+# Acortar nombres largos de movimientos
+Settings::SHORTEN_MOVES = true
+```
+
+## Pokévial infinito
+
+**Agregado en v1.1.2**: Opción para Pokévial con cargas infinitas.
+
+## Vsync
+
+**Agregado en v1.1.0**: Opción para desactivar vsync en el menú de opciones.
+
+```json
+// mkxp.json
+"vsync": false
+```
+
+<Card title="Ajustes de batalla" icon="sword" href="/configuracion/ajustes-batalla">
+  Ver configuraciones específicas de combate
+</Card>

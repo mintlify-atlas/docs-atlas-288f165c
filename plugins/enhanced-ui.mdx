@@ -1,0 +1,330 @@
+---
+title: 'Enhanced Pokemon UI'
+description: 'Sistema de interfaz mejorada para Pokémon con gráficos y funcionalidades personalizados'
+icon: 'palette'
+---
+
+## Descripción
+
+**Enhanced Pokemon UI** es un plugin que extiende y mejora la interfaz de usuario para la visualización de Pokémon en el equipo, almacenamiento y pantalla de resumen. Proporciona opciones de personalización visual y nuevas funcionalidades para mostrar información adicional del Pokémon.
+
+<Note>
+**Versión:** 1.0.6  
+**Requisitos:** Modular UI Scenes v2.0.8+  
+**Autor:** Lucidious89  
+**Enlace:** [Relic Castle](https://reliccastle.com/resources/1387/)
+</Note>
+
+## Características Principales
+
+### 1. Visualización de Hojas Brillantes (Shiny Leaf)
+
+Muestra las hojas brillantes obtenidas por el Pokémon en su interfaz.
+
+<CardGroup cols={2}>
+  <Card title="Modo Horizontal" icon="grip-horizontal">
+    Las hojas se muestran en línea horizontal
+  </Card>
+  
+  <Card title="Modo Vertical" icon="grip-vertical">
+    Las hojas se apilan verticalmente
+  </Card>
+</CardGroup>
+
+```ruby
+# Mostrar hojas brillantes en posición específica
+pbDisplayShinyLeaf(pokemon, overlay, xpos, ypos, vertical = false)
+
+# Ejemplo: Modo horizontal
+pbDisplayShinyLeaf(@pokemon, @overlay, 100, 200, false)
+
+# Ejemplo: Modo vertical
+pbDisplayShinyLeaf(@pokemon, @overlay, 100, 200, true)
+```
+
+#### Configuración de Hojas Brillantes
+
+```ruby
+# En PokemonSummary_Scene
+SHINY_CROWN_OFFSET_X = 0  # Offset X para la corona
+SHINY_CROWN_OFFSET_Y = 0  # Offset Y para la corona
+SHINY_LEAF_SPACING_X = 10 # Espaciado horizontal entre hojas
+SHINY_LEAF_SPACING_Y = 10 # Espaciado vertical entre hojas
+```
+
+### 2. Medidor de Felicidad
+
+Visualiza gráficamente el nivel de felicidad del Pokémon con un medidor animado.
+
+```ruby
+# Mostrar medidor de felicidad
+pbDisplayHappiness(pokemon, overlay, xpos, ypos)
+
+# Configuración del ancho máximo
+class PokemonSummary_Scene
+  HAPPY_METER_WIDTH_MAX = 255  # Valor máximo para el cálculo del ancho
+end
+```
+
+<Note>
+El medidor de felicidad no se muestra para Pokémon huevo o Pokémon sombra.
+</Note>
+
+### 3. Indicadores de IVs
+
+Muestra visualmente la calidad de los IVs del Pokémon mediante estrellas o iconos.
+
+```ruby
+# Mostrar indicadores de IVs
+pbDisplayIVRatings(pokemon, overlay, xpos, ypos, horizontal = false)
+
+# Ejemplo: Disposición horizontal
+pbDisplayIVRatings(@pokemon, @overlay, 150, 250, true)
+
+# Ejemplo: Disposición vertical (para pantalla de resumen)
+pbDisplayIVRatings(@pokemon, @overlay, 150, 250, false)
+```
+
+#### Sistema de Calificación de IVs
+
+| IV Value | Icono | Descripción |
+|----------|-------|-------------|
+| 31 | ⭐⭐⭐⭐⭐ | IV Perfecto |
+| 30 | ⭐⭐⭐⭐ | IV Casi Perfecto |
+| 25-29 | ⭐⭐⭐ | IV Alto |
+| 16-24 | ⭐⭐ | IV Medio |
+| 1-15 | ⭐ | IV Bajo |
+| 0 | ☆ | IV Cero |
+
+#### Configuración de IVs
+
+```ruby
+# En Settings
+Settings::IV_DISPLAY_STYLE = 0  # 0 = Estilo 1, 1 = Estilo 2
+
+# En PokemonSummary_Scene
+IV_RATING_ICON_SIZE = 16      # Tamaño del icono en píxeles
+IV_RATING_SPACING_X = 18      # Espaciado horizontal
+IV_RATING_SPACING_Y = 30      # Espaciado vertical
+IV_RATING_HP_GAP_STD = 5      # Gap después de HP (estándar)
+IV_RATING_HP_GAP_BW = 8       # Gap después de HP (BW Summary)
+```
+
+### 4. Pokéballs Personalizadas en el Equipo
+
+Muestra el tipo de Pokéball con la que fue capturado cada Pokémon en el menú del equipo.
+
+```ruby
+# Habilitar visualización de Pokéballs
+Settings::SHOW_PARTY_BALL = true
+```
+
+<Warning>
+Debes proporcionar los gráficos de las Pokéballs en:  
+`Graphics/Pictures/Pokemon UI/Party Ball/[BALL_ID].png`  
+`Graphics/Pictures/Pokemon UI/Party Ball/[BALL_ID]_sel.png`
+</Warning>
+
+#### Estructura de Gráficos
+
+```
+Graphics/Pictures/Pokemon UI/Party Ball/
+  ├── POKEBALL.png
+  ├── POKEBALL_sel.png
+  ├── GREATBALL.png
+  ├── GREATBALL_sel.png
+  ├── ULTRABALL.png
+  ├── ULTRABALL_sel.png
+  └── ...
+```
+
+## Configuración
+
+### Ruta de Gráficos
+
+```ruby
+# Define la ruta base para los gráficos del plugin
+Settings::POKEMON_UI_GRAPHICS_PATH = "Graphics/Pictures/Pokemon UI/"
+```
+
+### Configuración de Hojas Brillantes
+
+```ruby
+# Habilitar sistema de hojas brillantes
+Settings::SUMMARY_SHINY_LEAF = true
+```
+
+## Utilidades de Debugging
+
+### Debug de Hojas Brillantes
+
+El plugin añade opciones al menú de debug para gestionar hojas brillantes:
+
+```ruby
+# Acceso: Menú Debug > Pokémon > Cosméticos > Hoja brillante
+
+# Opciones disponibles:
+# 1. Definir contador de hoja (0-6)
+# 2. Definir corona (automáticamente establece 6 hojas)
+# 3. Resetear (vuelve a 0)
+```
+
+### Código de Debug
+
+```ruby
+# Establecer hojas manualmente en script
+pokemon.shiny_leaf = 3  # Dar 3 hojas
+
+# Verificar si tiene hojas
+if pokemon.shiny_leaf?
+  puts "Tiene #{pokemon.shiny_leaf} hojas"
+end
+
+# Verificar si tiene corona
+if pokemon.shiny_crown?
+  puts "Tiene corona brillante"
+end
+
+# Dar corona directamente
+pokemon.shiny_leaf = 6
+```
+
+## Integración con Otros Plugins
+
+### Compatibilidad con BW Summary Screen
+
+El plugin detecta automáticamente si tienes instalado BW Summary Screen y ajusta los espaciados:
+
+```ruby
+# Ajuste automático de gap de IVs
+if PluginManager.installed?("BW Summary Screen")
+  gap = PokemonSummary_Scene::IV_RATING_HP_GAP_BW
+else
+  gap = PokemonSummary_Scene::IV_RATING_HP_GAP_STD
+end
+```
+
+## Ejemplos de Uso
+
+### Ejemplo 1: Panel Personalizado con Todas las Características
+
+```ruby
+class CustomPokemonPanel
+  def initialize(pokemon, overlay, base_x, base_y)
+    @pokemon = pokemon
+    @overlay = overlay
+    @x = base_x
+    @y = base_y
+    
+    draw_panel
+  end
+  
+  def draw_panel
+    # Dibujar hojas brillantes (horizontal)
+    pbDisplayShinyLeaf(@pokemon, @overlay, @x + 10, @y + 10, false)
+    
+    # Dibujar medidor de felicidad
+    pbDisplayHappiness(@pokemon, @overlay, @x + 10, @y + 50)
+    
+    # Dibujar indicadores de IVs (vertical)
+    pbDisplayIVRatings(@pokemon, @overlay, @x + 150, @y + 10, false)
+  end
+end
+```
+
+### Ejemplo 2: Sistema de Recompensa por Hojas
+
+```ruby
+def check_shiny_leaf_reward(pokemon)
+  if pokemon.shiny_crown?
+    pbMessage("¡#{pokemon.name} tiene una corona brillante!")
+    pbMessage("¡Recibe una recompensa especial!")
+    # Dar recompensa
+    pbReceiveItem(:MASTERBALL)
+    return true
+  elsif pokemon.shiny_leaf >= 3
+    pbMessage("#{pokemon.name} tiene #{pokemon.shiny_leaf} hojas brillantes.")
+    pbMessage("¡Sigue coleccionando para obtener la corona!")
+    return false
+  end
+end
+```
+
+### Ejemplo 3: Información de IVs Mejorada
+
+```ruby
+def show_detailed_ivs(pokemon)
+  perfect_ivs = 0
+  GameData::Stat.each_main do |s|
+    perfect_ivs += 1 if pokemon.iv[s.id] == 31
+  end
+  
+  case perfect_ivs
+  when 6
+    pbMessage("¡#{pokemon.name} tiene IVs perfectos en todas sus estadísticas!")
+  when 4..5
+    pbMessage("#{pokemon.name} tiene IVs excelentes.")
+  when 2..3
+    pbMessage("#{pokemon.name} tiene buenos IVs.")
+  else
+    pbMessage("#{pokemon.name} tiene IVs normales.")
+  end
+end
+```
+
+## Recursos Gráficos Requeridos
+
+<CardGroup cols={2}>
+  <Card title="Hojas Brillantes" icon="leaf">
+    - `leaf.png` - Hoja individual
+    - `leaf_crown.png` - Corona de hojas
+  </Card>
+  
+  <Card title="Medidor de Felicidad" icon="heart">
+    - `happy_meter.png` - Sprite sheet (2 frames)
+  </Card>
+  
+  <Card title="Indicadores de IVs" icon="star">
+    - `iv_ratings.png` - Sprite sheet de iconos
+  </Card>
+  
+  <Card title="Pokéballs" icon="circle">
+    - Gráficos para cada tipo de ball
+    - Versiones seleccionadas y no seleccionadas
+  </Card>
+</CardGroup>
+
+## Solución de Problemas
+
+<Warning>
+**Error: "Settings::POKEMON_UI_GRAPHICS_PATH not defined"**
+
+Asegúrate de que la ruta de gráficos esté definida en tu archivo de configuración antes de usar las funciones del plugin.
+</Warning>
+
+<Note>
+**Los gráficos no se muestran correctamente**
+
+1. Verifica que los archivos estén en la ruta correcta
+2. Comprueba que los nombres coincidan exactamente (case-sensitive)
+3. Asegúrate de que los gráficos estén en formato PNG
+</Note>
+
+## Créditos y Enlaces
+
+**Autor:** Lucidious89  
+**Versión:** 1.0.6  
+**Compatible con:** Pokémon Essentials v21.1  
+**Enlace oficial:** [Relic Castle - Enhanced Pokemon UI](https://reliccastle.com/resources/1387/)
+
+## Páginas Relacionadas
+
+<CardGroup cols={2}>
+  <Card title="Modular UI Scenes" icon="window" href="/plugins/modular-ui">
+    Plugin requerido para Enhanced UI
+  </Card>
+  
+  <Card title="Descripción General" icon="list" href="/plugins/descripcion-general">
+    Volver al catálogo de plugins
+  </Card>
+</CardGroup>

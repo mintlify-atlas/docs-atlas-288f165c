@@ -1,0 +1,67 @@
+---
+title: "Formas Regionales"
+description: "Configuración de formas regionales y alternas"
+---
+
+## Formas por región
+
+```ruby
+Settings::REGIONAL_FORMS_DEPEND_ON_MAP_REGION = true
+```
+
+Cuando está activo, las formas regionales dependen de la región del mapa actual.
+
+## Ejemplo de uso
+
+### Definir región del mapa
+
+En `PBS/map_metadata.txt`:
+
+```
+[001]
+Name = Pueblo Paleta
+Region = 0  # Kanto
+
+[050]
+Name = Ciudad Alola
+Region = 7  # Alola
+```
+
+### Encuentros por región
+
+```ruby
+# En Kanto, aparecerá Meowth normal
+if $game_map.metadata.region == 0
+  pbWildBattle(:MEOWTH, 10)
+end
+
+# En Alola, aparecerá Meowth de Alola
+if $game_map.metadata.region == 7
+  pbWildBattle(:MEOWTH, 10, 1)  # Forma 1 = Alola
+end
+```
+
+## Formas de Vivillon
+
+```ruby
+Settings::LINEA_DE_SPEWPA_POR_ID = true
+```
+
+Las formas de Vivillon dependen del ID del jugador.
+
+## Ejemplos de entrenadores
+
+**Agregado en v1.0.4**: Combate contra Brock muestra cómo usar formas regionales en entrenadores.
+
+En `PBS/trainers.txt`:
+
+```
+[LEADER_Brock,0]
+Items = POTION
+Pokemon = GEODUDE,12,1  # Forma 1 = Geodude de Alola
+Pokemon = ONIX,14
+```
+
+<Card title="PBS Pokémon" icon="file" href="/pbs/pokemon">
+  Ver cómo definir formas en PBS
+</Card>

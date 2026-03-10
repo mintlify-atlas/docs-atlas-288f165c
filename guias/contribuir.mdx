@@ -1,0 +1,162 @@
+---
+title: "Cómo Contribuir"
+description: "Guía para contribuir al proyecto La Base de Sky"
+---
+
+## Contribuir a La Base de Sky
+
+<Note>
+Todas las contribuciones son bienvenidas: correcciones de bugs, nuevas características, mejoras de documentación y traducciones.
+</Note>
+
+## Proceso de contribución
+
+<Steps>
+  <Step title="Crear un fork">
+    1. Ve al [repositorio en GitHub](https://github.com/SkyFangames/La-Base-de-Sky)
+    2. Haz clic en el botón "Fork" en la esquina superior derecha
+    3. Esto creará una copia del repositorio en tu cuenta
+  </Step>
+
+  <Step title="Crear una branch">
+    Crea una nueva branch para tus cambios:
+    
+    ```bash
+    git checkout -b mejora-mi-feature
+    ```
+    
+    <Warning>
+    NUNCA hagas cambios directamente en la branch `main`. Siempre crea una branch nueva.
+    </Warning>
+  </Step>
+
+  <Step title="Hacer cambios">
+    Puedes editar archivos:
+    - Desde GitHub directamente (cambios pequeños)
+    - Clonando el repo y usando un IDE como VSCode (recomendado para cambios grandes)
+    
+    ```bash
+    git clone https://github.com/TU_USUARIO/La-Base-de-Sky.git
+    cd La-Base-de-Sky
+    ```
+  </Step>
+
+  <Step title="Commit de cambios">
+    ```bash
+    git add .
+    git commit -m "Descripción clara de los cambios"
+    git push origin mejora-mi-feature
+    ```
+  </Step>
+
+  <Step title="Crear Pull Request">
+    1. Ve a tu fork en GitHub
+    2. Verás un banner amarillo con "Compare & pull request"
+    3. Haz clic en el botón
+    4. **Importante**: Asegúrate que el base sea `dev`, NO `main`
+    5. Describe tus cambios claramente
+    6. Envía el PR
+  </Step>
+</Steps>
+
+## Lineamientos
+
+### Pull Requests aceptados
+
+<Accordion title="Corrección de bugs">
+  - Bug reports con pasos para reproducir
+  - Fixes bien probados
+  - Sin introducir nuevos bugs
+</Accordion>
+
+<Accordion title="Nuevas características">
+  - Bien documentadas
+  - Coherentes con el diseño existente
+  - Aprobadas por los maintainers
+</Accordion>
+
+<Accordion title="Mejoras de código">
+  - Refactoring que mejore legibilidad
+  - Optimizaciones de rendimiento
+  - Mejor manejo de errores
+</Accordion>
+
+### Pull Requests rechazados
+
+<Warning>
+Estos PRs serán rechazados automáticamente:
+
+- PRs directos a la branch `main`
+- Cambios sin descripción
+- Código que rompe funcionalidad existente
+- Features no solicitadas sin discusión previa
+</Warning>
+
+## Tipos de contribuciones
+
+<CardGroup cols={2}>
+  <Card title="Código" icon="code">
+    Scripts Ruby, plugins, sistemas de juego
+  </Card>
+  <Card title="Contenido" icon="database">
+    PBS files, datos de Pokémon, balanceo
+  </Card>
+  <Card title="Gráficos" icon="image">
+    Sprites, tiles, UI elements
+  </Card>
+  <Card title="Documentación" icon="book">
+    Guías, tutoriales, comentarios en código
+  </Card>
+</CardGroup>
+
+## Proceso de revisión
+
+1. **Skyflyer** o **DPertierra** revisarán tu PR
+2. Pueden pedirte cambios o aclaraciones
+3. Una vez aprobado, se merge a `dev`
+4. Eventualmente se incluirá en la próxima release
+
+<Info>
+El tiempo de revisión puede variar. Sé paciente y revisa los comentarios regularmente.
+</Info>
+
+## Buenas prácticas
+
+```ruby
+# ✅ BIEN: Código comentado y descriptivo
+def heal_pokemon(pokemon)
+  # Restaura HP y PP completamente
+  pokemon.hp = pokemon.totalhp
+  pokemon.moves.each { |move| move.pp = move.total_pp }
+end
+
+# ❌ MAL: Sin comentarios ni nombres claros
+def h(p)
+  p.hp = p.th
+  p.m.each { |m| m.pp = m.tp }
+end
+```
+
+<Tip>
+**Mejores prácticas:**
+- Usa nombres de variables descriptivos
+- Comenta código complejo
+- Sigue el estilo de código existente
+- Prueba tus cambios exhaustivamente
+- Actualiza la documentación si es necesario
+</Tip>
+
+## Reportar bugs
+
+Si encuentras un bug pero no puedes arreglarlo:
+
+1. Crea un [Issue en GitHub](https://github.com/SkyFangames/La-Base-de-Sky/issues)
+2. Incluye:
+   - Versión de la base
+   - Pasos para reproducir
+   - Comportamiento esperado vs actual
+   - Screenshots si aplica
+
+<Card title="Community guidelines" icon="users" href="https://github.com/SkyFangames/La-Base-de-Sky">
+  Lee el código de conducta completo en GitHub
+</Card>

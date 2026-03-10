@@ -1,0 +1,51 @@
+---
+title: "Overworld"
+description: "Sistemas del overworld y mapa"
+---
+
+## Overworld Systems
+
+Archivo: `037_Overworld/`
+
+## Movimiento mejorado
+
+**Mejorado en v1.1.0**: Movimiento con tap en teclas.
+
+### Controles
+
+- Movimiento suave
+- Tap rápido para un paso
+- Mantener para movimiento continuo
+
+## Fancy Camera
+
+**Incluido**: Sistema de cámara fluida.
+
+```ruby
+# Activar/desactivar
+$game_switches[FANCY_CAMERA_SWITCH] = true
+
+# Enfocar en coordenadas
+pbFocusCamera(x, y)
+```
+
+## Mapas sin reflejo
+
+**Agregado en v1.0.7**:
+
+```ruby
+Settings::MAPS_WITHOUT_REFLECTION = [1,2,3]
+```
+
+## NPC Random Movement
+
+**Mejorado en v1.0.4**: Ejemplos en Ruta 4 Carril Bici (mapa 40).
+
+```ruby
+# Movimiento random mejorado
+pbBetterRandomMove(event)
+```
+
+<Card title="Exportar mapas" icon="map" href="/guias/exportar-mapas">
+  Utilidades de mapas
+</Card>

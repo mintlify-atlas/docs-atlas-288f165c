@@ -1,0 +1,61 @@
+---
+title: "Crear Plugins"
+description: "Guía para crear tus propios plugins modulares"
+---
+
+## Estructura de un plugin
+
+```
+Plugins/
+└── Mi Plugin/
+    ├── meta.txt          # Metadatos del plugin
+    ├── 001_Config.rb    # Configuración
+    ├── 002_Main.rb      # Código principal
+    └── 003_Events.rb    # Event handlers
+```
+
+## Archivo meta.txt
+
+```
+Name = Mi Plugin
+Version = 1.0.0
+Credits = Tu Nombre
+Link = https://tu-sitio.com
+```
+
+## Ejemplo básico
+
+```ruby
+# 001_Config.rb
+module MiPlugin
+  VERSION = "1.0.0"
+  ENABLED = true
+end
+
+# 002_Main.rb
+if MiPlugin::ENABLED
+  class PokemonSystem
+    attr_accessor :mi_feature
+    
+    alias mi_plugin_initialize initialize
+    def initialize
+      mi_plugin_initialize
+      @mi_feature = false
+    end
+  end
+end
+```
+
+## Event Handlers
+
+```ruby
+EventHandlers.add(:on_wild_pokemon_created, :mi_plugin,
+  proc { |pokemon|
+    # Tu lógica aquí
+  }
+)
+```
+
+<Card title="Luka's Utilities" icon="toolbox" href="/plugins/luka-utilities">
+  Utiliza LUTS para facilitar desarrollo
+</Card>

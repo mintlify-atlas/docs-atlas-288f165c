@@ -1,0 +1,49 @@
+---
+title: "Sistema de Eventos"
+description: "Crear NPCs y eventos en mapas"
+---
+
+## Crear un NPC
+
+<Steps>
+  <Step title="Abrir editor de mapas">
+    RPG Maker XP editor
+  </Step>
+  <Step title="Crear evento">
+    Doble clic en el mapa
+  </Step>
+  <Step title="Configurar gráfico">
+    Seleccionar sprite del NPC
+  </Step>
+  <Step title="Añadir comandos">
+    Script calls para interacciones
+  </Step>
+</Steps>
+
+## Comandos comunes
+
+### Dar Pokémon
+
+```ruby
+pbAddPokemon(:PIKACHU, 5)
+```
+
+### Batalla entrenador
+
+```ruby
+pbTrainerBattle(:YOUNGSTER, "Timmy", "Has ganado", false, 0)
+```
+
+### Dar objeto
+
+```ruby
+pbReceiveItem(:POTION, 5)
+```
+
+## Ejemplos incluidos
+
+La base incluye NPCs demostrativos en:
+- Pueblo Inicio
+- Mapa de Plugins
+- Condominio Lugano
+- Ruta 4 (movimiento random)

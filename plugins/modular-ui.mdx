@@ -1,0 +1,533 @@
+---
+title: 'Modular UI Scenes (MUI)'
+description: 'Sistema modular para crear y gestionar escenas de interfaz de usuario personalizadas con handlers dinámicos'
+icon: 'window'
+---
+
+## Descripción
+
+**Modular UI Scenes** (MUI) es un framework completo que permite crear interfaces de usuario modulares y extensibles para Pokémon Essentials. Proporciona un sistema de handlers que facilita añadir, modificar y gestionar páginas y opciones de menú de forma dinámica.
+
+<Note>
+**Versión:** 2.0.9  
+**Requisitos:** v21.1 Hotfixes v1.0.6+  
+**Autor:** Lucidious89  
+**Enlace:** [Relic Castle](https://reliccastle.com/resources/1325/)
+</Note>
+
+<Warning>
+**Plugin Fundamental:** Este es un plugin base requerido por muchos otros plugins del ecosistema La Base de Sky. No debe deshabilitarse si tienes plugins que dependen de él.
+</Warning>
+
+## Sistema UIHandlers
+
+El núcleo de MUI es el módulo `UIHandlers`, que proporciona un sistema de gestión de menús y opciones modulares.
+
+### Estructura Básica
+
+```ruby
+module UIHandlers
+  # Añadir una nueva opción de menú
+  def self.add(ui, option, hash)
+    # ui: Identificador del menú (símbolo)
+    # option: Identificador de la opción (símbolo)
+    # hash: Configuración de la opción
+  end
+end
+```
+
+## Configuración de Handlers
+
+### Añadir Páginas/Opciones
+
+```ruby
+# Ejemplo: Añadir página personalizada al resumen de Pokémon
+UIHandlers.add(:summary, :page_custom, {
+  "name"      => "Mi Página",              # Nombre mostrado
+  "suffix"    => "custom",                 # Sufijo del icono
+  "order"     => 50,                       # Orden de aparición
+  "condition" => proc { |pkmn| true },     # Condición para mostrar
+  "layout"    => proc { |pkmn, scene| },  # Layout de la página
+  "options"   => [:option1, :option2],    # Opciones disponibles
+  "options_labels" => {                    # Etiquetas de opciones
+    :option1 => "Opción 1",
+    :option2 => "Opción 2"
+  }
+})
+```
+
+### Propiedades del Hash de Configuración
+
+| Propiedad | Tipo | Descripción |
+|-----------|------|-------------|
+| `name` | String/Proc | Nombre de la opción mostrado al usuario |
+| `suffix` | String | Sufijo para identificar gráficos |
+| `order` | Integer | Orden de aparición (menor = primero) |
+| `condition` | Proc | Condición para mostrar la opción |
+| `layout` | Proc | Código para dibujar el layout |
+| `options` | Array | Array de símbolos con opciones |
+| `options_labels` | Hash | Hash con etiquetas de opciones |
+| `plugin` | Array | `["NombrePlugin", booleano]` para condicionar por plugin |
+
+### Eliminar Opciones
+
+```ruby
+# Eliminar una opción específica
+UIHandlers.remove(:summary, :page_moves)
+
+# Limpiar todas las opciones de un menú
+UIHandlers.clear(:summary)
+```
+
+## Sistema de Pantalla de Resumen
+
+MUI incluye un sistema completo para personalizar la pantalla de resumen de Pokémon.
+
+### Configuración de Iconos de Página
+
+```ruby
+class PokemonSummary_Scene
+  # Máximo de iconos visibles simultáneamente
+  MAX_PAGE_ICONS = 5
+  
+  # Mostrar flechas de navegación
+  PAGE_ICONS_SHOW_ARROWS = true
+  
+  # Posición de los iconos [X, Y]
+  PAGE_ICONS_POSITION = [226, 2]
+  
+  # Alineación de iconos (:left, :right, :center)
+  PAGE_ICONS_ALIGNMENT = :center
+  
+  # Tamaño de cada icono [Ancho, Alto]
+  PAGE_ICON_SIZE = [52, 60]
+end
+```
+
+### Opciones Personalizadas por Página
+
+```ruby
+class PokemonSummary_Scene
+  # Ejecutar cuando se presiona USE en una página
+  def pbPageCustomUse(page_id)
+    case page_id
+    when :page_custom
+      pbMessage("¡Ejecutando acción personalizada!")
+      # Tu código aquí
+      return true  # Retornar true si se ejecutó correctamente
+    end
+    return false
+  end
+  
+  # Opción de menú personalizada
+  def pbPageCustomOption(cmd)
+    case cmd
+    when "Reset EV's"
+      pbMessage("Se han reseteado los EVs de #{@pokemon.name}.")
+      GameData::Stat.each_main { |s| @pokemon.ev[s.id] = 0 }
+      @pokemon.calc_stats
+      return true
+    end
+    return false
+  end
+end
+```
+
+## Sistema de Pokédex UI
+
+MUI proporciona handlers para personalizar la interfaz de la Pokédex.
+
+### Añadir Páginas a la Pokédex
+
+```ruby
+# Configuración de página de Pokédex
+UIHandlers.add(:pokedex, :page_area, {
+  "name"   => "Área",
+  "suffix" => "area",
+  "order"  => 30,
+  "layout" => proc { |species, scene|
+    # Dibujar información de área
+    overlay = scene.sprites["overlay"].bitmap
+    pbDrawTextPositions(overlay, [
+      ["Área de hábitat:", 10, 10, 0, Color.black, Color.white]
+    ])
+  }
+})
+```
+
+### Configuración de Pokédex
+
+```ruby
+# En [000] Pokedex Settings.rb
+class Pokedex_Scene
+  # Configuraciones similares a Summary
+  MAX_PAGE_ICONS = 5
+  PAGE_ICONS_SHOW_ARROWS = true
+  PAGE_ICONS_POSITION = [226, 2]
+  PAGE_ICONS_ALIGNMENT = :center
+  PAGE_ICON_SIZE = [52, 60]
+end
+```
+
+## Gestión Dinámica de Opciones
+
+### Iterar sobre Opciones
+
+```ruby
+# Iterar sobre todas las opciones de un menú
+UIHandlers.each(:summary) do |option, hash|
+  puts "Opción: #{option}"
+  puts "Nombre: #{hash['name']}"
+end
+
+# Iterar solo sobre opciones disponibles
+UIHandlers.each_available(:summary, pokemon) do |option, hash, name, icon, menu|
+  # option: ID de la opción
+  # hash: Configuración completa
+  # name: Nombre traducido
+  # icon: Sufijo del icono
+  # menu: Array de opciones
+  puts "#{name} está disponible"
+end
+```
+
+### Obtener Información de Opciones
+
+```ruby
+# Obtener nombre de una opción
+name = UIHandlers.get_info(:summary, :page_stats, :name)
+
+# Obtener sufijo
+suffix = UIHandlers.get_info(:summary, :page_stats, :suffix)
+
+# Obtener opciones disponibles
+options = UIHandlers.get_info(:summary, :page_stats, :options)
+
+# Obtener etiquetas de opciones
+labels = UIHandlers.get_info(:summary, :page_stats, :options_labels)
+```
+
+### Editar Handlers Existentes
+
+```ruby
+# Cambiar el orden de una página
+UIHandlers.edit_hash(:summary, :page_stats, "order", 10)
+
+# Cambiar el nombre
+UIHandlers.edit_hash(:summary, :page_stats, "name", "Estadísticas")
+
+# Añadir nueva condición
+UIHandlers.edit_hash(:summary, :page_stats, "condition", 
+  proc { |pkmn| !pkmn.egg? }
+)
+```
+
+## Sistema de Etiquetas de Opciones
+
+### Definir Etiquetas Individuales
+
+```ruby
+# Definir una etiqueta para una opción
+UIHandlers.define_option_label(:summary, :page_stats, :view_graph, "Ver Gráfico")
+```
+
+### Definir Múltiples Etiquetas
+
+```ruby
+# Definir varias etiquetas a la vez
+UIHandlers.define_options_labels(:summary, :page_stats, {
+  :view_graph  => "Ver Gráfico",
+  :compare     => "Comparar",
+  :reset_evs   => "Resetear EVs"
+})
+```
+
+## Comandos de Menú del Equipo
+
+MUI incluye sistema de comandos para el menú del equipo.
+
+```ruby
+# Ejemplo de uso interno
+class PokemonPartyScreen
+  def pbPokemonCommands(pkmnid)
+    commands = []
+    
+    # El sistema MUI maneja los comandos automáticamente
+    UIHandlers.each_available(:party_commands, @party[pkmnid]) do |cmd, hash, name, icon, menu|
+      commands << name
+    end
+    
+    return commands
+  end
+end
+```
+
+## Integración con Plugin Manager
+
+MUI extiende el PluginManager para verificar compatibilidad de versiones.
+
+```ruby
+# Verificación automática de plugins MUI
+PluginManager.plugin_check_MUI("2.0.8")
+
+# Lista de plugins verificados automáticamente:
+# - [MUI] Enhanced Pokemon UI (1.0.6+)
+# - [MUI] Pokedex Data Page (2.0.1+)
+# - [MUI] Improved Mementos (1.0.3+)
+# - [MUI] Improved Field Skills (1.0.1+)
+```
+
+## Ejemplos Prácticos
+
+### Ejemplo 1: Página de Biografía de Pokémon
+
+```ruby
+UIHandlers.add(:summary, :page_bio, {
+  "name"   => "Biografía",
+  "suffix" => "bio",
+  "order"  => 60,
+  "condition" => proc { |pkmn| !pkmn.egg? },
+  "layout" => proc { |pkmn, scene|
+    overlay = scene.sprites["overlay"].bitmap
+    base_x = 20
+    base_y = 80
+    
+    # Dibujar información biográfica
+    textpos = [
+      ["Nombre:", base_x, base_y, 0, Color.black, Color.white],
+      [pkmn.name, base_x + 100, base_y, 0, Color.new(0, 80, 160), Color.white],
+      
+      ["Entrenador original:", base_x, base_y + 30, 0, Color.black, Color.white],
+      [pkmn.owner.name, base_x + 100, base_y + 30, 0, Color.new(0, 80, 160), Color.white],
+      
+      ["Fecha de captura:", base_x, base_y + 60, 0, Color.black, Color.white],
+      [pbGetTimeText(pkmn.timeReceived), base_x + 100, base_y + 60, 0, Color.new(0, 80, 160), Color.white],
+      
+      ["Lugar de captura:", base_x, base_y + 90, 0, Color.black, Color.white],
+      [pbGetMapNameFromId(pkmn.obtain_map), base_x + 100, base_y + 90, 0, Color.new(0, 80, 160), Color.white]
+    ]
+    
+    pbDrawTextPositions(overlay, textpos)
+  },
+  "options" => [:view_ribbon, :view_memories],
+  "options_labels" => {
+    :view_ribbon   => "Ver Cintas",
+    :view_memories => "Ver Recuerdos"
+  }
+})
+```
+
+### Ejemplo 2: Sistema de Logros en Resumen
+
+```ruby
+# Añadir página de logros
+UIHandlers.add(:summary, :page_achievements, {
+  "name"   => proc { "Logros (#{count_achievements(@pokemon)})" },
+  "suffix" => "achievements",
+  "order"  => 70,
+  "condition" => proc { |pkmn| has_achievements?(pkmn) },
+  "layout" => proc { |pkmn, scene|
+    overlay = scene.sprites["overlay"].bitmap
+    achievements = get_achievements(pkmn)
+    
+    y = 80
+    achievements.each_with_index do |achievement, i|
+      icon = achievement[:unlocked] ? "unlocked" : "locked"
+      # Dibujar icono de logro
+      pbDrawImagePositions(overlay, [[
+        "Graphics/Pictures/Achievements/#{icon}",
+        20, y, 0, 0, 32, 32
+      ]])
+      
+      # Dibujar nombre del logro
+      pbDrawTextPositions(overlay, [[
+        achievement[:name],
+        60, y + 8, 0,
+        achievement[:unlocked] ? Color.new(0, 120, 0) : Color.gray,
+        Color.white
+      ]])
+      
+      y += 40
+    end
+  },
+  "options" => [:view_all, :share],
+  "options_labels" => {
+    :view_all => "Ver Todos",
+    :share    => "Compartir"
+  }
+})
+
+# Funciones auxiliares
+def count_achievements(pokemon)
+  return 0 unless pokemon.achievements
+  pokemon.achievements.count { |a| a[:unlocked] }
+end
+
+def has_achievements?(pokemon)
+  return false unless pokemon.achievements
+  return pokemon.achievements.length > 0
+end
+
+def get_achievements(pokemon)
+  return pokemon.achievements || []
+end
+```
+
+### Ejemplo 3: Menú Contextual Condicional
+
+```ruby
+# Opciones de menú que cambian según el contexto
+UIHandlers.add(:summary, :page_training, {
+  "name"   => "Entrenamiento",
+  "suffix" => "training",
+  "order"  => 40,
+  "condition" => proc { |pkmn| !pkmn.egg? && pkmn.level < GameData::GrowthRate.max_level },
+  "layout" => proc { |pkmn, scene|
+    # Layout de entrenamiento
+    overlay = scene.sprites["overlay"].bitmap
+    
+    # Mostrar EVs restantes
+    total_evs = 0
+    GameData::Stat.each_main { |s| total_evs += pkmn.ev[s.id] }
+    remaining_evs = Pokemon::EV_LIMIT - total_evs
+    
+    pbDrawTextPositions(overlay, [[
+      "EVs restantes: #{remaining_evs}",
+      20, 80, 0, Color.black, Color.white
+    ]])
+  },
+  "options" => proc { |pkmn|
+    # Opciones dinámicas basadas en el estado del Pokémon
+    opts = [:view_evs, :view_ivs]
+    
+    # Solo permitir resetear EVs si tiene alguno
+    total_evs = 0
+    GameData::Stat.each_main { |s| total_evs += pkmn.ev[s.id] }
+    opts << :reset_evs if total_evs > 0
+    
+    # Solo permitir entrenar si no está al máximo
+    opts << :boost_evs if total_evs < Pokemon::EV_LIMIT
+    
+    opts
+  },
+  "options_labels" => {
+    :view_evs  => "Ver EVs",
+    :view_ivs  => "Ver IVs",
+    :reset_evs => "Resetear EVs",
+    :boost_evs => "Entrenar"
+  }
+})
+```
+
+## Verificación de Existencia
+
+```ruby
+# Verificar si existe un handler
+if UIHandlers.exists?(:summary, :page_stats)
+  puts "La página de stats existe"
+end
+
+# Usar con seguridad
+if UIHandlers.exists?(:summary, :page_custom)
+  UIHandlers.edit_hash(:summary, :page_custom, "order", 99)
+end
+```
+
+## Llamar Funciones de Handlers
+
+```ruby
+# Ejecutar una función específica de un handler
+result = UIHandlers.call(:summary, :page_stats, "layout", pokemon, scene)
+
+# Ejemplo con condition
+should_show = UIHandlers.call(:summary, :page_moves, "condition", pokemon)
+```
+
+## Mejores Prácticas
+
+<CardGroup cols={2}>
+  <Card title="Orden Lógico" icon="sort">
+    Usa números espaciados (10, 20, 30) para facilitar inserción de nuevas páginas
+  </Card>
+  
+  <Card title="Condiciones Claras" icon="filter">
+    Siempre proporciona condiciones claras para evitar opciones inválidas
+  </Card>
+  
+  <Card title="Nombres Descriptivos" icon="tag">
+    Usa nombres de opciones descriptivos y consistentes
+  </Card>
+  
+  <Card title="Verificar Existencia" icon="check">
+    Verifica que los handlers existan antes de editarlos
+  </Card>
+</CardGroup>
+
+<Warning>
+**Cuidado con:**
+
+- No sobrescribir handlers existentes sin intención
+- Verificar que las condiciones retornen booleanos
+- Disponer correctamente los recursos gráficos en layouts
+- Mantener el orden de las páginas consistente
+</Warning>
+
+## Solución de Problemas
+
+<Note>
+**Error: "UIHandlers not found"**
+
+Asegúrate de que Modular UI Scenes esté cargado antes que tu plugin. Añade a tu `meta.txt`:
+
+```
+Requires = Modular UI Scenes,2.0.8
+```
+</Note>
+
+<Note>
+**Las opciones no aparecen**
+
+Verifica que:
+1. La condición retorne `true`
+2. El plugin requerido esté instalado (si usas `"plugin"`)
+3. El orden no coloque la opción fuera de rango visible
+</Note>
+
+## Recursos y Enlaces
+
+**Autor:** Lucidious89  
+**Versión:** 2.0.9  
+**Compatible con:** Pokémon Essentials v21.1  
+**Enlace oficial:** [Relic Castle - Modular UI Scenes](https://reliccastle.com/resources/1325/)
+
+## Plugins que Requieren MUI
+
+<CardGroup cols={2}>
+  <Card title="Enhanced Pokemon UI" icon="palette" href="/plugins/enhanced-ui">
+    Sistema de UI mejorada (v1.0.6+)
+  </Card>
+  
+  <Card title="Pokedex Data Page" icon="book">
+    Página de datos detallados (v2.0.1+)
+  </Card>
+  
+  <Card title="Lin's IV EV Summary" icon="chart-bar">
+    Pantalla de IVs/EVs (v1.2.1+)
+  </Card>
+  
+  <Card title="Improved Mementos" icon="image">
+    Sistema de mementos mejorado (v1.0.3+)
+  </Card>
+</CardGroup>
+
+## Páginas Relacionadas
+
+<CardGroup cols={2}>
+  <Card title="Descripción General" icon="list" href="/plugins/descripcion-general">
+    Volver al catálogo de plugins
+  </Card>
+  
+  <Card title="Luka's Utilities" icon="code" href="/plugins/luka-utilities">
+    Utilidades complementarias para MUI
+  </Card>
+</CardGroup>
