@@ -1,0 +1,168 @@
+{
+  "projectType": "framework",
+  "projectName": "La Base de Sky",
+  "projectDescription": "Spanish Pokémon Essentials v21.1 framework with enhanced features, plugins, and complete Gen 9 support",
+  "theme": "maple",
+  "primaryColor": "#7c7c7c",
+  "lightColor": "#0a0a0a",
+  "darkColor": "#c7c7c7",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentación",
+        "groups": [
+          {
+            "group": "Introducción",
+            "pages": [
+              "introduccion",
+              "instalacion",
+              "inicio-rapido"
+            ]
+          },
+          {
+            "group": "Características",
+            "pages": [
+              "caracteristicas/pokedex-avanzada",
+              "caracteristicas/sistema-combate",
+              "caracteristicas/gestion-pokemon",
+              "caracteristicas/interfaz-mejorada",
+              "caracteristicas/herramientas-debug"
+            ]
+          },
+          {
+            "group": "Plugins",
+            "pages": [
+              "plugins/descripcion-general",
+              "plugins/enhanced-ui",
+              "plugins/luka-utilities",
+              "plugins/modular-ui",
+              "plugins/auto-sort"
+            ]
+          },
+          {
+            "group": "Configuración",
+            "pages": [
+              "configuracion/ajustes-generales",
+              "configuracion/ajustes-batalla",
+              "configuracion/formas-regionales",
+              "configuracion/exp-share"
+            ]
+          },
+          {
+            "group": "PBS",
+            "pages": [
+              "pbs/pokemon",
+              "pbs/movimientos",
+              "pbs/habilidades",
+              "pbs/objetos",
+              "pbs/entrenadores"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Guías",
+        "groups": [
+          {
+            "group": "Desarrollo",
+            "pages": [
+              "guias/contribuir",
+              "guias/crear-plugin",
+              "guias/sistema-eventos",
+              "guias/scripts-personalizados"
+            ]
+          },
+          {
+            "group": "Características Avanzadas",
+            "pages": [
+              "guias/regalo-misterioso",
+              "guias/incubadora",
+              "guias/pokevial",
+              "guias/intercambio-pc",
+              "guias/buscador-salvajes"
+            ]
+          },
+          {
+            "group": "Utilidades",
+            "pages": [
+              "guias/debug-passability",
+              "guias/exportar-mapas",
+              "guias/turbo-velocidad",
+              "guias/animaciones-ataques"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Referencia",
+        "groups": [
+          {
+            "group": "Scripts",
+            "pages": [
+              "referencia/settings",
+              "referencia/battle-settings",
+              "referencia/game-classes",
+              "referencia/overworld"
+            ]
+          },
+          {
+            "group": "Generaciones",
+            "pages": [
+              "referencia/gen-9",
+              "referencia/paldea",
+              "referencia/hisui",
+              "referencia/galar"
+            ]
+          },
+          {
+            "group": "Changelog",
+            "pages": [
+              "changelog/v1-1-2",
+              "changelog/v1-1-1",
+              "changelog/v1-1-0",
+              "changelog/versiones-anteriores"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Pokédex Avanzada con búsqueda instantánea",
+    "Enhanced UI con mejor experiencia de batalla",
+    "Sistema de Regalo Misterioso completamente renovado",
+    "Soporte completo de Pokémon Gen 9 (Paldea)",
+    "Mejoras en el almacenamiento PC (ordenar, buscar, favoritos)",
+    "Incubadora de huevos integrada",
+    "Pokévial para curación fuera de combate",
+    "Buscador de Pokémon salvajes por ruta",
+    "Sistema de velocidad turbo configurable",
+    "Debug tools mejoradas (passability, terminal F3)",
+    "Animaciones de movimientos actualizadas",
+    "Intercambio de Pokémon desde PC",
+    "Visualización de IVs y EVs",
+    "Múltiples plugins modulares (MUI)",
+    "Soporte Ruby Standard Library 3.3.0"
+  ],
+  "publicApiSurface": [
+    "Settings::RESTORE_HELD_ITEMS_AFTER_BATTLE",
+    "Settings::USE_NEW_EXP_SHARE",
+    "Settings::EXPSHARE_ENABLED",
+    "Settings::REGIONAL_FORMS_DEPEND_ON_MAP_REGION",
+    "Settings::SHOW_TYPE_EFFECTIVENESS_FOR_NEW_SPECIES",
+    "Settings::DELUXE_GRAPHICS_PATH",
+    "Settings::BATTLE_UI_GRAPHICS_PATH",
+    "PBS pokemon.txt",
+    "PBS moves.txt",
+    "PBS abilities.txt",
+    "PBS items.txt",
+    "PBS trainers.txt",
+    "PBS regional_dexes.txt",
+    "PBS encounters.txt",
+    "Plugins::BoxAutoSort",
+    "Plugins::LukaScriptingUtilities",
+    "Plugins::ModularUI",
+    "Plugins::EnhancedPokemonUI",
+    "Plugins::PokedexDataPage"
+  ]
+}
